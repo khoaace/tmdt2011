@@ -7,6 +7,10 @@ router.get("/error", function(req, res, next) {
 });
 
 
+router.get("/", function(req, res, next) {
+  res.render("index", { title: "Express test ", user: req.session.user });
+});
+
 /*-----------------------------------Xác thực tài khoản----------------------------*/
 router.use(function(req, res, next) {
   // check header or url parameters or post parameters for token
@@ -21,8 +25,6 @@ router.use(function(req, res, next) {
   }
 });
 
-router.get("/", function(req, res, next) {
-  res.render("index", { title: "Express test ", user: req.session.user });
-});
+
 
 module.exports = router;
