@@ -1,0 +1,99 @@
+<div class="container">
+    <div class="row">
+        <br><br>
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked admin-menu" >
+                <li class="active"><a href="" data-target-id="profile"><i class="glyphicon glyphicon-user"></i>Thông tin</a></li>
+                <li><a href="" data-target-id="theodoidonhang"><i class="glyphicon glyphicon-list-alt"></i> Lịch sử mua vé</a></li>
+                <li><a href="" data-target-id="change-password"><i class="glyphicon glyphicon-lock"></i> Đổi mật khẩu</a></li>
+                <li><a href="" data-target-id="settings"><i class="glyphicon glyphicon-cog"></i> Chỉnh sửa thông tin</a></li>
+                <li><a href="" data-target-id="logout"><i class="glyphicon glyphicon-log-out"></i> Đăng xuất</a></li>
+            </ul>
+        </div>
+
+        <div class="col-md-9  admin-content" id="profile">
+            <div class="panel panel-info" style="margin: 1em;">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Tên đăng nhập</h3>
+                </div>
+                <div class="panel-body">
+                    <%= user.username %>
+                </div>
+            </div>
+
+            <div class="panel panel-info" style="margin: 1em;">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Địa chỉ mail</h3>
+                </div>
+                <div class="panel-body">
+                    <%= user.email %>
+                </div>
+            </div>
+
+            <div class="panel panel-info" style="margin: 1em;">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Tên đầy đủ</h3>
+
+                </div>
+                <div class="panel-body">
+                    <%= user.fullname %>
+                </div>
+            </div>
+
+
+            <div class="panel panel-info" style="margin: 1em;">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Ngày tạo</h3>
+
+                </div>
+                <div class="panel-body">
+                    <%= user.createDate %>
+                </div>
+            </div>
+
+            <% if(user.agency) { %>
+                <div class="panel panel-info" style="margin: 1em;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Tên nhà xe </h3>
+    
+                    </div>
+                    <div class="panel-body">
+                        <%= user.agencyName %>
+                    </div>
+                </div>
+
+                <div class="panel panel-info" style="margin: 1em;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Địa chỉ nhà xe </h3>
+    
+                    </div>
+                    <div class="panel-body">
+                        <%= user.agencyAdress %>
+                    </div>
+                </div>
+
+                <div class="panel panel-info" style="margin: 1em;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Số điện thoại nhà xe</h3>
+    
+                    </div>
+                    <div class="panel-body">
+                        <%= user.agencyPhoneNumber %>
+                    </div>
+                </div>
+
+                <div class="panel panel-info" style="margin: 1em;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Mô tả nhà xe</h3>
+    
+                    </div>
+                    <div class="panel-body">
+                        <%= user.agencyDiscription %>
+                    </div>
+                </div>
+            <% } %>
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+a {
+  color: #00B7FF;
+}
+/*  CSS for login page */
+.content { padding-top: 70px; }
+
+
+.navbar-blue .navbar-nav > li.active:not(.disabled) > a,.navbar-blue .navbar-nav > li.open:not(.disabled) > a,.navbar-blue .navbar-nav > li:not(.disabled) > a:focus,.navbar-blue .navbar-nav > li:not(.disabled) > a:hover {
+   color:white;
+   background-color:#1E5FE0;
+}
+.navbar-blue .navbar-nav > li.active:not(.disabled) > a,.navbar-blue .navbar-nav > li.open:not(.disabled) > a,.navbar-blue .navbar-nav > li:not(.disabled) > a:focus,.navbar-blue .navbar-nav > li:not(.disabled) > a:hover {
+    border-left-width: 5px;
+    color: white;
+    padding-left: 10px;
+}
+
+.navbar-blue {
+    background-color: blue;
+    border-color: white;
+    border-radius: 0;
+    margin-bottom: 0;
+    z-index: 100;
+}
+.navbar-blue .navbar-brand {
+color:white;
+}
+.navbar-blue .navbar-brand:hover {
+color:white;
+}
+.navbar-blue  .navbar-link {
+    color:white
+    }
+/*  End CSS for login page */
