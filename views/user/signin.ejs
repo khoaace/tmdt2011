@@ -18,7 +18,8 @@
                   </label>
               </div>
               <!-- Change this to a button or input when using this as a form -->
-              <button type="submit" class="btn btn-sm btn-success" style="width: 100%">Login</button>
+              <button type="submit" class="btn btn-sm btn-success" style="width: 100%">Login</button><br/><br/>
+             
               <% if (message.length !== 0) { %>
                 <div class="alert alert-danger">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -27,6 +28,7 @@
                 <% } %>
           </fieldset>
       </form>
+      <button class="btn btn-sm btn-default" style="width: 100%"  onclick="window.location.href='/signup'">  Sign Up</button>
   </div>
 </div>
 </div>

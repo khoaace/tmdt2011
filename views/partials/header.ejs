@@ -43,6 +43,10 @@
               <%= user.username %></strong><span class="caret"></span></a>
           <ul role="menu" class="dropdown-menu">
             <li class="active"><a class="animate" href="/profile">Hồ sơ</a></li>
+            <% if(locals.user.agency) { %>
+              <li role="separator" class="divider"></li>
+              <li class="animate"><a class="animate" href="/dashboard">Quản lý nhà xe</a></li>
+              <% } %>
             <li role="separator" class="divider"></li>
             <li class="dropdown-header">User Settings</li>
             <li><a class="animate" href="#">Đổi mật khẩu</a></li>
