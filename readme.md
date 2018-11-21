@@ -1,4 +1,4 @@
-# TMDT
+﻿# TMDT
 ## Các framework được sử dụng trong đồ án này
 - Expressjs
 - EJS (view engine)
@@ -12,7 +12,7 @@
 - views (các view hiển thị trên website được viết bằng html nhưng cấu trúc theo ejs)
 ## Cách chạy project
 - Clone source về local
-- Chạy "npm isntall"
+- Chạy "npm install"
 - Chạy "npm start"
 - Project chạy trên địa chỉ (localhost:3001)
 
