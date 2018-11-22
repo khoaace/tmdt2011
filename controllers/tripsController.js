@@ -1,4 +1,5 @@
 var tripsModel = require('../models/tripsModel.js');
+var agency = require('../models/usersModel.js');
 
 /**
  * tripsController.js
@@ -27,7 +28,7 @@ module.exports = {
      */
     show: function (req, res) {
         var id = req.params.id;
-        tripsModel.findOne({_id: id}, function (err, trips) {
+        tripsModel.findOne({_id: id}, async function (err, trips) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when getting trips.',
@@ -39,7 +40,23 @@ module.exports = {
                     message: 'No such trips'
                 });
             }
-            return res.json(trips);
+            await agency.findOne({_id:trips.agency},function(err,agency){
+                if(err)
+                {
+                    return res.status(500).json({
+                        message: 'Error when getting agency.',
+                        error: err
+                    }); 
+                }
+                if (!agency) {
+                    return res.status(404).json({
+                        message: 'No such agency'
+                    });
+                }
+                trips['agencyInfo'] = agency;
+                return res.json(agency);
+            })
+           
         });
     },
 
@@ -48,12 +65,15 @@ module.exports = {
      */
     create: function (req, res) {
         var trips = new tripsModel({
-			agency : req.body.agency,
+			agency : req.session.user,
 			departure : req.body.departure,
 			departureTime : req.body.departureTime,
 			destination : req.body.destination,
-			arrivalTime : req.body.arrivalTime,
-			price : req.body.price
+			arrivialTime : req.body.arrivialTime,
+			typeOfBus : req.body.typeOfBus,
+			licensePlate : req.body.licensePlate,
+            reservations : req.body.reservations,
+            price : req.body.price,
 
         });
 
@@ -90,8 +110,11 @@ module.exports = {
 			trips.departure = req.body.departure ? req.body.departure : trips.departure;
 			trips.departureTime = req.body.departureTime ? req.body.departureTime : trips.departureTime;
 			trips.destination = req.body.destination ? req.body.destination : trips.destination;
-			trips.arrivalTime = req.body.arrivalTime ? req.body.arrivalTime : trips.arrivalTime;
-			trips.price = req.body.price ? req.body.price : trips.price;
+			trips.arrivialTime = req.body.arrivialTime ? req.body.arrivialTime : trips.arrivialTime;
+			trips.typeOfBus = req.body.typeOfBus ? req.body.typeOfBus : trips.typeOfBus;
+			trips.licensePlate = req.body.licensePlate ? req.body.licensePlate : trips.licensePlate;
+            trips.reservations = req.body.reservations ? req.body.reservations : trips.reservations;
+            trips.price = req.body.price ? req.body.price : trips.price;
 			
             trips.save(function (err, trips) {
                 if (err) {

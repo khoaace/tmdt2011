@@ -9,8 +9,11 @@ var tripsSchema = new Schema({
 	'departure' : String,
 	'departureTime' : Date,
 	'destination' : String,
-	'arrivalTime' : Date,
-	'price' : Number
+	'arrivialTime' : Date,
+	'typeOfBus' : Number,
+	'licensePlate' : String,
+	'reservations' : Array,
+	'price' : Number,
 });
 
 module.exports = mongoose.model('trips', tripsSchema);
