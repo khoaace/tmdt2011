@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>EC1805 - TMDT - <%= locals.title %></title>
+    <title>EC1805 - TMDT -
+        <%= locals.title %>
+    </title>
     <link rel="shortcut icon" href="/images/favion.ico" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
@@ -9,12 +12,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css" />
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
     <link rel='stylesheet' href='/stylesheets/dashboard_style.css' />
-    
+
 </head>
 
 <body>
-<!--     Dialog    -->
+    <!--     Dialog    -->
     <div id="modalbox" class="modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -23,54 +28,43 @@
                     <!-- modal-title -->
                     <h4 id="main_modal_title" class="modal-title" style="color:white">Thông Báo</h4>
                 </div>
-                    <!-- modal-title -->
+                <!-- modal-title -->
                 <div id="main_modal_body" class="modal-body">
                     <!-- #modalalert -->
                     <p id="main_modal_body_alert">Nội dung</p>
                 </div>
-                    <!-- modal-footer -->
+                <!-- modal-footer -->
                 <div id="main_modal_footer" class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Huỷ</button>
                 </div>
             </div>
         </div>
     </div>
-<!--    / Dialog    -->
+    <!--    / Dialog    -->
 
-<div id="throbber" style="display:none; min-height:120px;"></div>
-<div id="noty-holder"></div>
-<div id="wrapper">
-    <!--Phan Header , cai dat tai /views/partials/header.hbs-->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <% include ../partials/dashboardHeader %>
-        <% include ../partials/dashboardSidebar %>
-    </nav>
+    <div id="throbber" style="display:none; min-height:120px;"></div>
+    <div id="noty-holder"></div>
+    <div id="wrapper">
+        <!--Phan Header , cai dat tai /views/partials/header.hbs-->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <% include ../partials/dashboardHeader %>
+            <% include ../partials/dashboardSidebar %>
+        </nav>
 
-    <!-- phần nội dung -->
-
-
-
-    <div id="page-wrapper">
-        <div class="container-fluid">
-            <!-- Page Heading -->
-            <div class="row" id="main" >
-                <div class="col-sm-12 col-md-12 well" id="content">
-                    <%- body %>
+        <!-- phần nội dung -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <div class="row" id="main">
+                    <div class="col-sm-12 col-md-12 well" id="content">
+                        <%- body %>
+                    </div>
                 </div>
+                <!-- /.row -->
             </div>
-            <!-- /.row -->
+            <!-- /.container-fluid -->
         </div>
-        <!-- /.container-fluid -->
-    </div>
-    <!-- /#page-wrapper -->
-</div><!-- /#wrapper -->
-
-
-
-
-
-
+        <!-- /#page-wrapper -->
+    </div><!-- /#wrapper -->
 </body>
-
-
 </html>

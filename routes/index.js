@@ -1,5 +1,7 @@
 var express = require("express");
 var router = express.Router();
+var tripsModel = require('../models/tripsModel.js');
+var moment = require('moment');
 
 /* GET home page. */
 router.get("/error", function(req, res, next) {
@@ -8,7 +10,13 @@ router.get("/error", function(req, res, next) {
 
 
 router.get("/", function(req, res, next) {
-  res.render("index", { title: "Express test ", user: req.session.user });
+  tripsModel.find({},function(err,trips){
+    if(err)
+    res.render("index", { title: "Express test ", user: req.session.user, trips: trips, moment: moment });
+    else
+    res.render("index", { title: "Express test ", user: req.session.user, trips: trips, moment: moment});
+  });
+
 });
 
 /*-----------------------------------Xác thực tài khoản----------------------------*/

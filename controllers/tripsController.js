@@ -84,7 +84,7 @@ module.exports = {
                     error: err
                 });
             }
-            return res.status(201).json(trips);
+            return res.redirect('/dashboard/new-trip');
         });
     },
 
@@ -133,7 +133,7 @@ module.exports = {
      * tripsController.remove()
      */
     remove: function (req, res) {
-        var id = req.params.id;
+        var id = req.body.tripId;
         tripsModel.findByIdAndRemove(id, function (err, trips) {
             if (err) {
                 return res.status(500).json({
@@ -143,5 +143,36 @@ module.exports = {
             }
             return res.status(204).json();
         });
+    },
+
+    getListPaginate: function (req, res) {
+        let start = parseInt(req.query.start) || 0;
+        let length = parseInt(req.query.length) || 0;
+        tripsModel.find({agency: req.session.user._id},async function (err, tripss) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when getting trips.',
+                    error: err
+                });
+            }
+            await tripsModel.paginate({agency: req.session.user._id}, { offset: start, limit: length }, function (err, result) {
+                if (err) {
+                    return res.status(500).json({
+                        message: 'Error when getting trips.',
+                        error: err
+                    });
+                }
+                let finalResult = {
+                    draw: req.query.draw,
+                    recordsTotal: tripss.length,
+                    recordsFiltered: tripss.length,
+                    data: result.docs
+                };
+                res.send(finalResult);  
+            });
+
+        });
     }
+
+
 };

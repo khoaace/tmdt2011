@@ -1,0 +1,129 @@
+<table id="example" class="display">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Departure</th>
+            <th>Departure Time</th>
+            <th>Destination</th>
+            <th>Arrivial Time</th>
+            <th>Type Of Bus</th>
+            <th>License Plate</th>
+            <th>Reservations</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+    var table = $("#example").DataTable({
+        processing: true,
+        serverSide: true,
+        bLengthChange: false,
+        paging: true,
+        pageLength: 10,
+        autoWidth: false,
+        ajax: { url: "/dashboard/get-list-trip-paginate", type: "GET", dataType: "json" },
+        columns: [
+            {
+                'data': '_id',
+                'class': 'text-center',
+                "visible": false,
+                'orderable': false,
+                'render': function (data, type, row) {
+                    return '<a href="#">' + row._id + '</a>';
+                }
+            },
+            {
+                'data': 'departure',
+                'class': 'text-center',
+                'orderable': false,
+                'render': function (data, type, row) {
+                    return row.departure;
+                }
+            },
+            {
+                'data': 'departureTime',
+                'class': 'text-center',
+                'orderable': false,
+                'render': function (data, type, row) {
+                    return moment(row.departureTime, "HH:mm:ss").format("hh:mm A (DD-MM-YYYY)");
+                }
+            },
+            {
+                'data': 'destination',
+                'class': 'text-center',
+                'orderable': false,
+                'render': function (data, type, row) {
+                    return row.destination;
+                }
+            },
+            {
+                'data': 'arrivialTime',
+                'class': 'text-center',
+                'orderable': false,
+                'render': function (data, type, row) {
+                    return moment(row.arrivialTime, "HH:mm:ss").format("hh:mm A (DD-MM-YYYY)");
+                }
+            },
+            {
+                'data': 'typeOfBus',
+                'class': 'text-center',
+                'orderable': false,
+                'render': function (data, type, row) {
+                    return row.typeOfBus;
+                }
+            },
+            {
+                'data': 'licensePlate',
+                'class': 'text-center',
+                'orderable': false,
+                'render': function (data, type, row) {
+                    return row.licensePlate;
+                }
+            },
+            {
+                'data': 'reservations',
+                'class': 'text-center',
+                'orderable': false,
+                'render': function (data, type, row) {
+                    return row.reservations;
+                }
+            },
+            {
+                'data': 'price',
+                'class': 'text-center',
+                'orderable': false,
+                'render': function (data, type, row) {
+                    return row.price.toLocaleString(
+                        undefined,
+                        { minimumFractionDigits: 0 }
+                    )+' VND';
+                }
+            },
+            {
+                'class': 'text-center',
+                'orderable': false,
+                'render': function (data, type, row) {
+                    return '<button class="btn btn-danger btn-delete" data-id="' + row._id + '">Delete</button>';
+                }
+            },
+        ]
+    });
+
+    $(document).on('click', 'button.btn-delete', function (event) {
+        const data = {
+            tripId: $(this).attr('data-id')
+        }
+        $.ajax({
+            type: 'POST',
+            url: "/dashboard/remove-trip",
+            data: data,
+        }).done((res) => {
+            table.ajax.reload();
+        }).catch((err) => {
+        });
+    });
+
+</script>
