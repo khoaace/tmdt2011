@@ -8,7 +8,8 @@ var mongoose = require("mongoose");
 var passport = require('passport');
 
 var indexRouter = require("./routes/index");
-var agencyDashboardRouter = require("./routes/agency");
+var dashboardAgencyRouter = require("./routes/dashboardAgency");
+var tripsRouter = require("./routes/tripsRoutes");
 
 var configDB = require("./config/database");
 var session = require("express-session");
@@ -42,7 +43,8 @@ require("./routes/usersRoutes")(app, passport);
 require("./config/passport")(passport);
 
 app.use("/", indexRouter);
-app.use("/dashboard", agencyDashboardRouter);
+app.use("/dashboard", dashboardAgencyRouter);
+app.use("/trips", tripsRouter);
 
 //connect to database
 mongoose.connect(

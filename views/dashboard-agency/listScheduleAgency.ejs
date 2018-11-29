@@ -24,7 +24,7 @@
         paging: true,
         pageLength: 10,
         autoWidth: false,
-        ajax: { url: "/dashboard/get-list-trip-paginate", type: "GET", dataType: "json" },
+        ajax: { url: location.origin+"trips/get-list-trip-paginate", type: "GET", dataType: "json" },
         columns: [
             {
                 'data': '_id',
@@ -111,6 +111,7 @@
             },
         ]
     });
+    alert(window.location.host);
 
     $(document).on('click', 'button.btn-delete', function (event) {
         const data = {
@@ -118,7 +119,7 @@
         }
         $.ajax({
             type: 'POST',
-            url: "/dashboard/remove-trip",
+            url:"http://window.location.host+"/trips/remove-trip",
             data: data,
         }).done((res) => {
             table.ajax.reload();

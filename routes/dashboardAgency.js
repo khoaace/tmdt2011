@@ -20,7 +20,7 @@ router.use(function (req, res, next) {
   }
 });
 
-//---> /dashboard/
+//---> /dashboard/ (view)
 
 router.get("/", function (req, res, next) {
   res.render("dashboard-agency/index", { title: "Quản lý nhà xe", user: req.session.user, layout: "layouts/dashboardLayout" });
@@ -32,16 +32,6 @@ router.get("/new-trip", function (req, res, next) {
 router.get("/list-trips", function (req, res, next) {
   res.render("dashboard-agency/listScheduleAgency", { title: "Danh sách lịch trình ", user: req.session.user, layout: "layouts/dashboardLayout", message: req.flash("info") });
 });
-
-router.post("/new-trip", tripsController.create);
-
-router.get("/get-trip/:id", tripsController.show);
-
-router.get("/get-list-trip-paginate", tripsController.getListPaginate);
-
-router.post("/remove-trip", tripsController.remove);
-
-
 
 
 module.exports = router;

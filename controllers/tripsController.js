@@ -172,7 +172,33 @@ module.exports = {
             });
 
         });
+    },
+
+    generateListTrip: function (req, res) {
+        var trips = new tripsModel({
+			agency : req.session.user,
+			departure : "Hà nội",
+			departureTime : new Date(),
+			destination : "Hồ Chí Minh",
+			arrivialTime :  new Date(),
+			typeOfBus : 2,
+			licensePlate : '49A-123456',
+            reservations : '',
+            price : 250000,
+        });
+
+        trips.save(function (err, trips) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when creating trips',
+                    error: err
+                });
+            }
+            return res.send("ok")
+        });
     }
+
+
 
 
 };

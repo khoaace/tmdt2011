@@ -27,4 +27,15 @@ router.put('/:id', tripsController.update);
  */
 router.delete('/:id', tripsController.remove);
 
+
+router.post("/new-trip", tripsController.create);
+
+router.get("/get-trip/:id", tripsController.show);
+
+router.get("/get-list-trip-paginate", tripsController.getListPaginate);
+
+router.post("/remove-trip", tripsController.remove);
+
+router.get("/generator", tripsController.generateListTrip);
+
 module.exports = router;

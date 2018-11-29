@@ -19,6 +19,24 @@ router.get("/", function(req, res, next) {
 
 });
 
+router.get("/list-trips/:page", function (req, res, next) {
+  let perPage = 3;
+  let page = req.params.page || 1;
+  tripsModel.paginate({}, { offset:(perPage * page) - perPage, limit: perPage }, async function (err, result) {
+    await tripsModel.find({}, function (err, trips) {
+      if (err) return next(err);
+      res.render('guest/list-trips', {
+        title: "Express test ",
+        trips: result.docs,
+        current: page,
+        pages: Math.ceil(trips.length / perPage),
+        moment: moment,
+        user: req.session.user
+      })
+    });
+  });
+});
+
 /*-----------------------------------Xác thực tài khoản----------------------------*/
 router.use(function(req, res, next) {
   // check header or url parameters or post parameters for token
