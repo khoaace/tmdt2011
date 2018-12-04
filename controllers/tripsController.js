@@ -54,7 +54,10 @@ module.exports = {
                     });
                 }
                 trips['agencyInfo'] = agency;
-                return res.json(agency);
+                return res.render('guest/popups/booking', {
+                    trip: trips,
+                    layout: 'layouts/noneLayout'
+                  })
             })
            
         });

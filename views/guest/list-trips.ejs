@@ -1,30 +1,28 @@
-
- <!-- The Modal -->
+     <!-- The Modal -->
 <div class="modal" id="bookingTrip">
-    <div class="modal-dialog">
-      <div class="modal-content">
-  
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Đặt vé</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div class="modal-dialog">
+          <div class="modal-content">
+      
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Đặt vé</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+      
+            <!-- Modal body -->
+            <div class="modal-body" id="bookingTripBody">
+              Dang tải . .. ...
+            </div>
+      
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+      
+          </div>
         </div>
-  
-        <!-- Modal body -->
-        <div class="modal-body" id="bookingTripBody">
-          Dang tải . .. ...
-        </div>
-  
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-  
       </div>
-    </div>
-  </div>
-<!-- End Modal   --> 
-    
+    <!-- End Modal   --> 
     <% for(var i=0; i<trips.length; i++) { %>
         <div style="border: 1px dotted black;padding : 1em;">
             <h4>Điểm đi:
@@ -45,7 +43,7 @@
                 </strong>
             </h4>
 
-            <button class="btn btn-default" data-toggle="modal" data-target="#bookingTrip" onclick="alert('test');">Đặt vé</button>
+            <button class="btn btn-default"  onclick="getInfoTrip('<%= trips[i]._id %>')">Đặt vé</button>
         </div>
         <br/> 
         <% } %>
@@ -80,3 +78,16 @@
         </ul>
     </nav>
     <% } %>
+    
+    <script>
+        function getInfoTrip(id) {
+            $('#bookingTrip').modal('show');
+            $.ajax({
+                type: 'GET',
+                url: '/trips/'+id,
+            }).done(function (res) {
+                $("#bookingTripBody").html(res);
+            }).fail(function (data) {
+            });
+        }
+    </script>

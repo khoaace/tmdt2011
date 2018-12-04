@@ -5,7 +5,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var expressLayouts = require("express-ejs-layouts");
 var mongoose = require("mongoose");
-var passport = require('passport');
+var passport = require("passport");
 
 var indexRouter = require("./routes/index");
 var dashboardAgencyRouter = require("./routes/dashboardAgency");
@@ -26,7 +26,6 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 //Set layout default
 
-
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -43,8 +42,8 @@ require("./routes/usersRoutes")(app, passport);
 require("./config/passport")(passport);
 
 app.use("/", indexRouter);
-app.use("/dashboard", dashboardAgencyRouter);
 app.use("/trips", tripsRouter);
+app.use("/dashboard", dashboardAgencyRouter);
 
 //connect to database
 mongoose.connect(
