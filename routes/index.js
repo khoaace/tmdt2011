@@ -20,7 +20,7 @@ router.get("/", function(req, res, next) {
 });
 
 router.get("/list-trips/:page", function (req, res, next) {
-  let perPage = 3;
+  let perPage = 9;
   let page = req.params.page || 1;
   tripsModel.paginate({}, { offset:(perPage * page) - perPage, limit: perPage }, async function (err, result) {
     await tripsModel.find({}, function (err, trips) {

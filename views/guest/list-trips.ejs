@@ -1,6 +1,6 @@
      <!-- The Modal -->
-<div class="modal" id="bookingTrip">
-        <div class="modal-dialog">
+<div class="modal fade" id="bookingTrip">
+        <div class="modal-dialog modal-lg">
           <div class="modal-content">
       
             <!-- Modal Header -->
@@ -11,7 +11,7 @@
       
             <!-- Modal body -->
             <div class="modal-body" id="bookingTripBody">
-              Dang tải . .. ...
+                <div class="loader"></div>
             </div>
       
             <!-- Modal footer -->
@@ -82,6 +82,7 @@
     <script>
         function getInfoTrip(id) {
             $('#bookingTrip').modal('show');
+            $("#bookingTripBody").html('<div class="loader"></div>');
             $.ajax({
                 type: 'GET',
                 url: '/trips/'+id,

@@ -1,8 +1,58 @@
-<%= trip.departure %><br />
-<%= trip.departureTime %><br />
-<%= trip.destination %><br />
-<%= trip.arrivialTime %><br />
-<%= trip.typeOfBus %><br />
-<%= trip.licensePlate %><br />
-<%= trip.price %><br />
-<%= trip.agencyInfo %><br />
+<div style="word-break: break-all">
+<h4>Nhà xe</h4>:<%= trip.agencyInfo.fullname %>
+<hr />
+<h4>Địa chỉ nhà xe </h4>:<%= trip.agencyInfo.agencyAdress %>
+<hr />
+<h4>SDT Nhà Xe </h4>:<%= trip.agencyInfo.agencyPhoneNumber %>
+<hr />
+<h4>Điểm đi </h4>:<%= trip.departure %> (<%= moment(trip.departureTime, "HH:mm:ss").format("hh:mm A (DD-MM-YYYY)") %>)
+<hr />
+<h4>Điểm đến </h4>:<%= trip.destination %> (<%= moment(trip.arrivialTime, "HH:mm:ss").format("hh:mm A (DD-MM-YYYY)") %>)
+<hr />
+<h4>Loại xe</h4>:<%= trip.typeOfBus %>
+<hr />
+<h4>Giá vé</h4>: <h3><%= trip.price %></h3>
+<hr />
+
+<table id="myTable" style="border: 1px solid black; font-size: 13px;">
+    <tbody>
+    <tr>
+    <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+    <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+    <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+    </tr>
+    
+    <tr>
+    <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+    <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+    <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+    </tr>
+    
+    <tr>
+    <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+    <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+    <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+    </tr>
+    </tbody>
+    </table>
+    <p id="tr"></p>
+    <p id="td"></p>
+</div>
+
+<script>
+    function myFunction(x) {
+    var tr = x.parentNode.rowIndex;
+    var td = x.cellIndex;
+    var table = document.getElementById('myTable');
+    
+    document.getElementById("tr").innerHTML = "Row index is: " + tr;
+    document.getElementById("td").innerHTML = "Column index is: " + td;
+    if(table.rows[tr].cells[td].style["background-color"] === "red")
+    table.rows[tr].cells[td].style="background-color: unset;";
+    else
+    table.rows[tr].cells[td].style="background-color: red;";
+    }
+</script>
+
+
+

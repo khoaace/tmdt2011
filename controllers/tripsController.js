@@ -1,5 +1,6 @@
 var tripsModel = require('../models/tripsModel.js');
 var agency = require('../models/usersModel.js');
+var moment = require('moment');
 
 /**
  * tripsController.js
@@ -56,7 +57,8 @@ module.exports = {
                 trips['agencyInfo'] = agency;
                 return res.render('guest/popups/booking', {
                     trip: trips,
-                    layout: 'layouts/noneLayout'
+                    layout: 'layouts/noneLayout',
+                    moment: moment,
                   })
             })
            
