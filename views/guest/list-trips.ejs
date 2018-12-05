@@ -82,12 +82,12 @@
     <script>
         function getInfoTrip(id) {
             $('#bookingTrip').modal('show');
-            $("#bookingTripBody").html('<div class="loader"></div>');
+            $("#bookingTripBody").html('<center><div class="loader"></div></center>');
             $.ajax({
                 type: 'GET',
                 url: '/trips/'+id,
             }).done(function (res) {
-                $("#bookingTripBody").html(res);
+                $("#bookingTripBody").html(res); 
             }).fail(function (data) {
             });
         }
