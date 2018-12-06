@@ -13,8 +13,6 @@ var tripsRouter = require("./routes/tripsRoutes");
 
 var configDB = require("./config/database");
 var session = require("express-session");
-var morgan = require("morgan");
-var bodyParser = require("body-parser");
 var flash = require("connect-flash");
 
 var app = express();

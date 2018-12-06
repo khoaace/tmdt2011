@@ -2,10 +2,10 @@ var express = require("express");
 var router = express.Router();
 var tripsModel = require('../models/tripsModel.js');
 var moment = require('moment');
-var tripsController = require("../controllers/tripsController.js");
 
 
 
+// View for All memerber 
 
 
 router.get("/", function(req, res, next) {

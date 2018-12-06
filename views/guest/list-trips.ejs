@@ -16,6 +16,7 @@
       
             <!-- Modal footer -->
             <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="bookTicket();" >Submit</button>
               <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
       
@@ -86,6 +87,8 @@
             $.ajax({
                 type: 'GET',
                 url: '/trips/'+id,
+                cache: false,
+                async:false
             }).done(function (res) {
                 $("#bookingTripBody").html(res); 
             }).fail(function (data) {

@@ -27,5 +27,11 @@ router.put("/:id", tripsController.update);
  */
 router.delete("/:id", tripsController.remove);
 
+/*
+ * UPDATE RESERVATION
+ */
+router.put("/updateReservation/:id", tripsController.UpdateReservation);
+
+
 
 module.exports = router;

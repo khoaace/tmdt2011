@@ -150,6 +150,36 @@ module.exports = {
         });
     },
 
+
+
+    UpdateReservation: function (req, res) {
+        let id = req.params.id;
+        tripsModel.findOne({_id:id}, async function (err, trips) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when getting trips',
+                    error: err
+                });
+            }
+            if (!trips) {
+                return res.status(404).json({
+                    message: 'No such trips'
+                });
+            }
+            trips.reservations = req.body['reservations[]'] ? req.body['reservations[]'] : trips.reservations;
+            await trips.save(function (err, trips) {
+                if (err) {
+                    return res.status(500).json({
+                        message: 'Error when updating trips.',
+                        error: err
+                    });
+                }
+                 return res.send('ok');
+            });
+        });
+    },
+
+
     getListPaginate: function (req, res) {
         let start = parseInt(req.query.start) || 0;
         let length = parseInt(req.query.length) || 0;
@@ -186,9 +216,9 @@ module.exports = {
 			departureTime : new Date(),
 			destination : "Hồ Chí Minh",
 			arrivialTime :  new Date(),
-			typeOfBus : 2,
+			typeOfBus : 16,
 			licensePlate : '49A-123456',
-            reservations : '',
+            reservations : ['A1B5','A2B5'],
             price : 250000,
         });
 

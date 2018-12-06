@@ -1,58 +1,150 @@
 <div style="word-break: break-all">
-<h4>Nhà xe</h4>:<%= trip.agencyInfo.fullname %>
-<hr />
-<h4>Địa chỉ nhà xe </h4>:<%= trip.agencyInfo.agencyAdress %>
-<hr />
-<h4>SDT Nhà Xe </h4>:<%= trip.agencyInfo.agencyPhoneNumber %>
-<hr />
-<h4>Điểm đi </h4>:<%= trip.departure %> (<%= moment(trip.departureTime, "HH:mm:ss").format("hh:mm A (DD-MM-YYYY)") %>)
-<hr />
-<h4>Điểm đến </h4>:<%= trip.destination %> (<%= moment(trip.arrivialTime, "HH:mm:ss").format("hh:mm A (DD-MM-YYYY)") %>)
-<hr />
-<h4>Loại xe</h4>:<%= trip.typeOfBus %>
-<hr />
-<h4>Giá vé</h4>: <h3><%= trip.price %></h3>
-<hr />
+  <input type="hidden" value="<%= trip._id %>" id="idTrip" />
+  <input type="hidden" value="<%= trip.reservations %>" id="reservationTrip" />
+  <h4>Nhà xe</h4>
+  <%= trip.agencyInfo.fullname %>
+  <hr />
+  <h4>Địa chỉ nhà xe</h4>
+  <%= trip.agencyInfo.agencyAdress %>
+  <hr />
+  <h4>SDT Nhà Xe</h4>
+  <%= trip.agencyInfo.agencyPhoneNumber %>
+  <hr />
+  <h4>Điểm đi</h4>
+  <%= trip.departure %> (<%= moment(trip.departureTime,
+  "HH:mm:ss").format("hh:mm A (DD-MM-YYYY)") %>)
+  <hr />
+  <h4>Điểm đến</h4>
+  <%= trip.destination %> (<%= moment(trip.arrivialTime,
+  "HH:mm:ss").format("hh:mm A (DD-MM-YYYY)") %>)
+  <hr />
+  <h4>Loại xe</h4>
+  <% if(trip.typeOfBus === 0) { %> Giường nằm <% }else{ %> <%= trip.typeOfBus %>
+  (chỗ) <% } %>
+  <hr />
+  <h4>Giá vé</h4>
+  <h3><%= trip.price %></h3>
+  <%= trip.reservations %>
+  <hr />
 
-<table id="myTable" style="border: 1px solid black; font-size: 13px;">
+  <% if(trip.typeOfBus === 16) { %>
+  <table id="myTable" style="border: 1px solid black; font-size: 13px;">
     <tbody>
-    <tr>
-    <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-    <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-    <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-    </tr>
-    
-    <tr>
-    <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-    <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-    <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-    </tr>
-    
-    <tr>
-    <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-    <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-    <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-    </tr>
+      <tr>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+      </tr>
+
+      <tr>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+      </tr>
+
+      <tr>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+      </tr>
+
+      <tr>
+        <td onclick="myFunction(this)"><i class="fas fa-times-circle"></i></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+      </tr>
     </tbody>
-    </table>
-    <p id="tr"></p>
-    <p id="td"></p>
+  </table>
+  <% } %>
+
+  <p id="tr"></p>
+  <p id="td"></p>
+  <button onclick="checkArray()">Ssss</button>
 </div>
 
 <script>
-    function myFunction(x) {
-    var tr = x.parentNode.rowIndex;
-    var td = x.cellIndex;
-    var table = document.getElementById('myTable');
-    
-    document.getElementById("tr").innerHTML = "Row index is: " + tr;
-    document.getElementById("td").innerHTML = "Column index is: " + td;
-    if(table.rows[tr].cells[td].style["background-color"] === "red")
-    table.rows[tr].cells[td].style="background-color: unset;";
-    else
-    table.rows[tr].cells[td].style="background-color: red;";
+    console.log('Vao');
+  //  set seat from reservationArray before render Table
+  var table = document.getElementById("myTable");
+  // Change to string to Array
+  let reservationString = $("#reservationTrip").val();
+  let reservationArray = reservationString.split(",");
+  // Set seat not available
+  console.log('start');
+  
+  reservationArray.forEach(element => {
+    let pos = getPositionTable(element);
+    table.rows[pos.AValue].cells[pos.BValue].style = "background-color: red";
+  });
+  console.log('finish');
+  // Handle click a Seat
+
+  function myFunction(x) {
+    let tr = x.parentNode.rowIndex;
+    let td = x.cellIndex;
+    let id = $("#idTrip").val();
+    let stringPos = "A" + tr + "B" + td;
+    let result = "";
+    if (
+      table.rows[tr].cells[td].innerHTML === "" ||
+      table.rows[tr].cells[td].innerHTML ===
+        '<i class="fas fa-times-circle"></i>' ||
+        table.rows[tr].cells[td].style["background-color"] === "red"
+    ){
+        console.log('hehe1');
+        return;
     }
+    if (reservationArray.indexOf(stringPos) !== -1 &&  table.rows[tr].cells[td].style["background-color"] !== "green") {
+        console.log('hehe2');
+        return;
+    }
+    if (table.rows[tr].cells[td].style["background-color"] === "green") {
+      table.rows[tr].cells[td].style = "background-color: unset;";
+      let pos = reservationArray.indexOf(stringPos);
+      if(pos !== -1)
+      reservationArray.splice(pos, 1);
+    } else {
+      table.rows[tr].cells[td].style = "background-color: green;";
+      result = "A" + tr + "B" + td;
+      reservationArray.push(result);
+    }
+  }
+
+  function checkArray() {
+    console.log(reservationArray);
+  }
+
+  function getPositionTable(s) {
+    let Bpos = s.indexOf("B");
+    let A = parseInt(s.slice(0 + 1, Bpos));
+    let B = parseInt(s.slice(Bpos + 1, s.length));
+    return { AValue: A, BValue: B };
+  }
+
+  function bookTicket() {
+      console.log('hello');
+    let payload = { id:$("#idTrip").val() , reservations: reservationArray };
+
+    $.ajax({
+        type:'PUT',
+        url:"/trips/updateReservation/"+$("#idTrip").val(),
+        data:payload
+    }).done(function (data) {
+        $("#bookingTripBody").load(window.location.href + ' #bookingTripBody');
+    }).fail(function (data) {
+        console.log(data);
+    });
+  }
 </script>
-
-
-
