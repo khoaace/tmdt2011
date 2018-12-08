@@ -88,9 +88,10 @@
                 type: 'GET',
                 url: '/trips/'+id,
                 cache: false,
-                async:false
-            }).done(function (res) {
+                async:true,
+            }).done(async function (res) {
                 $("#bookingTripBody").html(res); 
+                await $.getScript("/javascripts/booking.js");
             }).fail(function (data) {
             });
         }

@@ -55,10 +55,12 @@ module.exports = {
                     });
                 }
                 trips['agencyInfo'] = agency;
+                let r = Math.random().toString(36).substring(7);
                 return res.render('guest/popups/booking', {
                     trip: trips,
                     layout: 'layouts/noneLayout',
                     moment: moment,
+                    token: r
                   })
             })
            
@@ -237,3 +239,5 @@ module.exports = {
 
 
 };
+
+
