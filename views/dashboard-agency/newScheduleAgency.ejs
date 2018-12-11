@@ -1,0 +1,228 @@
+<div class="d-flex justify-content-center" style="margin: 2em;">
+  <div class="login-panel panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Tạo mới lịch trình</h3>
+    </div>
+    <div class="panel-body">
+      <form role="form" method="POST" action="/dashboard/new-trip">
+        <fieldset style="padding: 2em;">
+          <div class="form-group">
+            <label for="sel1">Điểm đi:</label>
+            <select name="departure">
+              <option value="An Giang">An Giang
+              <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu
+              <option value="Bắc Giang">Bắc Giang
+              <option value="Bắc Kạn">Bắc Kạn
+              <option value="Bạc Liêu">Bạc Liêu
+              <option value="Bắc Ninh">Bắc Ninh
+              <option value="Bến Tre">Bến Tre
+              <option value="Bình Định">Bình Định
+              <option value="Bình Dương">Bình Dương
+              <option value="Bình Phước">Bình Phước
+              <option value="Bình Thuận">Bình Thuận
+              <option value="Bình Thuận">Bình Thuận
+              <option value="Cà Mau">Cà Mau
+              <option value="Cao Bằng">Cao Bằng
+              <option value="Đắk Lắk">Đắk Lắk
+              <option value="Đắk Nông">Đắk Nông
+              <option value="Điện Biên">Điện Biên
+              <option value="Đồng Nai">Đồng Nai
+              <option value="Đồng Tháp">Đồng Tháp
+              <option value="Đồng Tháp">Đồng Tháp
+              <option value="Gia Lai">Gia Lai
+              <option value="Hà Giang">Hà Giang
+              <option value="Hà Nam">Hà Nam
+              <option value="Hà Tĩnh">Hà Tĩnh
+              <option value="Hải Dương">Hải Dương
+              <option value="Hậu Giang">Hậu Giang
+              <option value="Hòa Bình">Hòa Bình
+              <option value="Hưng Yên">Hưng Yên
+              <option value="Khánh Hòa">Khánh Hòa
+              <option value="Kiên Giang">Kiên Giang
+              <option value="Kon Tum">Kon Tum
+              <option value="Lai Châu">Lai Châu
+              <option value="Lâm Đồng">Lâm Đồng
+              <option value="Lạng Sơn">Lạng Sơn
+              <option value="Lào Cai">Lào Cai
+              <option value="Long An">Long An
+              <option value="Nam Định">Nam Định
+              <option value="Nghệ An">Nghệ An
+              <option value="Ninh Bình">Ninh Bình
+              <option value="Ninh Thuận">Ninh Thuận
+              <option value="Phú Thọ">Phú Thọ
+              <option value="Quảng Bình">Quảng Bình
+              <option value="Quảng Bình">Quảng Bình
+              <option value="Quảng Ngãi">Quảng Ngãi
+              <option value="Quảng Ninh">Quảng Ninh
+              <option value="Quảng Trị">Quảng Trị
+              <option value="Sóc Trăng">Sóc Trăng
+              <option value="Sơn La">Sơn La
+              <option value="Tây Ninh">Tây Ninh
+              <option value="Thái Bình">Thái Bình
+              <option value="Thái Nguyên">Thái Nguyên
+              <option value="Thanh Hóa">Thanh Hóa
+              <option value="Thừa Thiên Huế">Thừa Thiên Huế
+              <option value="Tiền Giang">Tiền Giang
+              <option value="Trà Vinh">Trà Vinh
+              <option value="Tuyên Quang">Tuyên Quang
+              <option value="Vĩnh Long">Vĩnh Long
+              <option value="Vĩnh Phúc">Vĩnh Phúc
+              <option value="Yên Bái">Yên Bái
+              <option value="Phú Yên">Phú Yên
+              <option value="Tp.Cần Thơ">Tp.Cần Thơ
+              <option value="Tp.Đà Nẵng">Tp.Đà Nẵng
+              <option value="Tp.Hải Phòng">Tp.Hải Phòng
+              <option value="Tp.Hà Nội">Tp.Hà Nội
+              <option value="TP  HCM">TP HCM
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="sel1">Thời gian khởi hành:</label>
+            <div class='input-group date' id='datetimepicker1'>
+              <input type='text' class="form-control" name="departureTime" />
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+            <script type="text/javascript">
+              $(function () {
+                $('#datetimepicker1').datetimepicker();
+              });
+            </script>
+
+          </div>
+
+          <div class="form-group">
+            <label for="sel1">Điểm đến:</label>
+            <select name="destination">
+              <option value="An Giang">An Giang
+              <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu
+              <option value="Bắc Giang">Bắc Giang
+              <option value="Bắc Kạn">Bắc Kạn
+              <option value="Bạc Liêu">Bạc Liêu
+              <option value="Bắc Ninh">Bắc Ninh
+              <option value="Bến Tre">Bến Tre
+              <option value="Bình Định">Bình Định
+              <option value="Bình Dương">Bình Dương
+              <option value="Bình Phước">Bình Phước
+              <option value="Bình Thuận">Bình Thuận
+              <option value="Bình Thuận">Bình Thuận
+              <option value="Cà Mau">Cà Mau
+              <option value="Cao Bằng">Cao Bằng
+              <option value="Đắk Lắk">Đắk Lắk
+              <option value="Đắk Nông">Đắk Nông
+              <option value="Điện Biên">Điện Biên
+              <option value="Đồng Nai">Đồng Nai
+              <option value="Đồng Tháp">Đồng Tháp
+              <option value="Đồng Tháp">Đồng Tháp
+              <option value="Gia Lai">Gia Lai
+              <option value="Hà Giang">Hà Giang
+              <option value="Hà Nam">Hà Nam
+              <option value="Hà Tĩnh">Hà Tĩnh
+              <option value="Hải Dương">Hải Dương
+              <option value="Hậu Giang">Hậu Giang
+              <option value="Hòa Bình">Hòa Bình
+              <option value="Hưng Yên">Hưng Yên
+              <option value="Khánh Hòa">Khánh Hòa
+              <option value="Kiên Giang">Kiên Giang
+              <option value="Kon Tum">Kon Tum
+              <option value="Lai Châu">Lai Châu
+              <option value="Lâm Đồng">Lâm Đồng
+              <option value="Lạng Sơn">Lạng Sơn
+              <option value="Lào Cai">Lào Cai
+              <option value="Long An">Long An
+              <option value="Nam Định">Nam Định
+              <option value="Nghệ An">Nghệ An
+              <option value="Ninh Bình">Ninh Bình
+              <option value="Ninh Thuận">Ninh Thuận
+              <option value="Phú Thọ">Phú Thọ
+              <option value="Quảng Bình">Quảng Bình
+              <option value="Quảng Bình">Quảng Bình
+              <option value="Quảng Ngãi">Quảng Ngãi
+              <option value="Quảng Ninh">Quảng Ninh
+              <option value="Quảng Trị">Quảng Trị
+              <option value="Sóc Trăng">Sóc Trăng
+              <option value="Sơn La">Sơn La
+              <option value="Tây Ninh">Tây Ninh
+              <option value="Thái Bình">Thái Bình
+              <option value="Thái Nguyên">Thái Nguyên
+              <option value="Thanh Hóa">Thanh Hóa
+              <option value="Thừa Thiên Huế">Thừa Thiên Huế
+              <option value="Tiền Giang">Tiền Giang
+              <option value="Trà Vinh">Trà Vinh
+              <option value="Tuyên Quang">Tuyên Quang
+              <option value="Vĩnh Long">Vĩnh Long
+              <option value="Vĩnh Phúc">Vĩnh Phúc
+              <option value="Yên Bái">Yên Bái
+              <option value="Phú Yên">Phú Yên
+              <option value="Tp.Cần Thơ">Tp.Cần Thơ
+              <option value="Tp.Đà Nẵng">Tp.Đà Nẵng
+              <option value="Tp.Hải Phòng">Tp.Hải Phòng
+              <option value="Tp.Hà Nội">Tp.Hà Nội
+              <option value="TP  HCM">TP HCM
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="sel1">Thời gian tới nơi:</label>
+            <div class='input-group date' id='datetimepicker2'>
+              <input type='text' class="form-control" name="arrivialTime" />
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+            <script type="text/javascript">
+              $(function () {
+                $('#datetimepicker2').datetimepicker();
+              });
+            </script>
+
+          </div>
+
+
+          <div class="form-group">
+            <label for="sel1">Loại xe :</label>
+            <select name="typeOfBus">
+              <option value="16">16 chỗ</option>
+              <option value="29">29 chỗ</option>
+              <option value="34">34 chỗ</option>
+              <option value="0">Giường nằm</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+              <label for="sel1">Biển số xe :</label>
+              <input
+              class="form-control"
+              id="licensePlate"
+              name="licensePlate"
+              type="text"
+              value=""
+            />
+            </div>
+
+            <div class="form-group">
+                <label for="sel1">Giá vé :</label>
+                <input
+                class="form-control"
+                id="price"
+                name="price"
+                type="number"
+                value=""
+              />
+              </div>
+
+          <!-- Change this to a button or input when using this as a form -->
+          <button type="submit" class="btn btn-sm btn-success" style="width: 100%">New</button>
+          <% if (message.length !== 0) { %>
+          <div class="alert alert-danger">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <%= message %>
+          </div>
+          <% } %>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
