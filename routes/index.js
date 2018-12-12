@@ -11,9 +11,9 @@ var moment = require('moment');
 router.get("/", function(req, res, next) {
   tripsModel.find({},function(err,trips){
     if(err)
-    res.render("index", { title: "Express test ", user: req.session.user, trips: trips, moment: moment });
+    res.render("index", { title: "EC1805 ", user: req.session.user, trips: trips, moment: moment });
     else
-    res.render("index", { title: "Express test ", user: req.session.user, trips: trips, moment: moment});
+    res.render("index", { title: "EC1805 ", user: req.session.user, trips: trips, moment: moment});
   });
 
 });
