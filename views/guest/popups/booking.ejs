@@ -2,44 +2,168 @@
   <input type="hidden" value="<%= trip._id %>" id="idTrip" />
   <input type="hidden" value="<%= token %>" id="tableToken" />
   <input type="hidden" value="<%= trip.reservations %>" id="reservationTrip" />
-  <h4>Nhà xe</h4>
-  <%= trip.agencyInfo.fullname %>
-  <hr />
-  <h4>Địa chỉ nhà xe</h4>
-  <%= trip.agencyInfo.agencyAdress %>
-  <hr />
-  <h4>SDT Nhà Xe</h4>
-  <%= trip.agencyInfo.agencyPhoneNumber %>
-  <hr />
-  <h4>Điểm đi</h4>
-  <%= trip.departure %> (
-  <%= moment(trip.departureTime,
-  "HH:mm:ss").format("hh:mm A (DD-MM-YYYY)") %>)
-  <hr />
-  <h4>Điểm đến</h4>
-  <%= trip.destination %> (
-  <%= moment(trip.arrivialTime,
-  "HH:mm:ss").format("hh:mm A (DD-MM-YYYY)") %>)
-  <hr />
-  <h4>Loại xe</h4>
-  <% if(trip.typeOfBus === 0) { %> Giường nằm
-  <% }else{ %>
-  <%= trip.typeOfBus %>
-  (chỗ)
-  <% } %>
-  <hr />
-  <h4>Giá vé</h4>
-  <h3>
-    <%= trip.price %>
-  </h3>
-  <hr />
+  <div class="jumbotron">
+    <ul class="list-group">
+      <li class="list-group-item"><span class="badge badge-pill badge-primary">Nhà xe</span> :
+        <strong>
+          <%= trip.agencyInfo.fullname %></strong>
+      </li>
+      <li class="list-group-item"><span class="badge badge-pill badge-primary">Địa chỉ nhà xe</span> :
+        <strong>
+          <%= trip.agencyInfo.agencyAdress %></strong>
+      </li>
+      <li class="list-group-item"><span class="badge badge-pill badge-primary">SDT Nhà Xe</span> :
+        <strong>
+          <%= trip.agencyInfo.agencyPhoneNumber %></strong>
+      </li>
+      <li class="list-group-item"><span class="badge badge-pill badge-primary">Điểm đi</span> :
+        <strong>
+          <%= trip.departure %> (
+          <%= moment(trip.departureTime,
+    "HH:mm:ss").format("hh:mm A (DD-MM-YYYY)") %>)</strong></li>
+      <li class="list-group-item"><span class="badge badge-pill badge-primary">Điểm đến</span> :
+        <strong>
+          <%= trip.destination %> (
+          <%= moment(trip.arrivialTime,
+    "HH:mm:ss").format("hh:mm A (DD-MM-YYYY)") %>)</strong></li>
+      <li class="list-group-item"><span class="badge badge-pill badge-primary">Loại xe</span> :
+        <strong>
+          <% if(trip.typeOfBus === 0) { %> Giường nằm
+          <% }else{ %>
+          <%= trip.typeOfBus %>
+          (chỗ)
+          <% } %></strong></li>
+      <li class="list-group-item"><span class="badge badge-pill badge-primary">Giá vé </span>: <strong style="color:blueviolet;">
+          <%= trip.price.toLocaleString(undefined, { minimumFractionDigits: 0 }) %>(VND)</strong></li>
+    </ul>
+  </div>
+  <hr>
+  <center>
+    <h4>Chọn chỗ</h4>
+    <% if(trip.typeOfBus === 16) { %>
+    <table id="myTable<%= token %>" class="table-hover">
+      <tbody>
+        <tr>
+          <td onclick="myFunction(this)"></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"></td>
+          <td onclick="myFunction(this)"></td>
+          <td onclick="myFunction(this)"></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        </tr>
 
-  <% if(trip.typeOfBus === 16) { %>
-  <table id="myTable<%= token %>" style="border: 1px solid black; font-size: 13px;">
-    <tbody>
+        <tr>
+          <td onclick="myFunction(this)"></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        </tr>
+
+        <tr>
+          <td onclick="myFunction(this)"></td>
+          <td onclick="myFunction(this)"></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        </tr>
+
+        <tr>
+          <td onclick="myFunction(this)"><i class="fas fa-user-circle"></i></td>
+          <td onclick="myFunction(this)"></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        </tr>
+      </tbody>
+    </table>
+    <% } %>
+    <% if(trip.typeOfBus === 29) { %>
+    <table id="myTable<%= token %>" class="table-hover">
+      <tbody>
+        <tr>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        </tr>
+
+        <tr>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"></td>
+          <td onclick="myFunction(this)"></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        </tr>
+
+        <tr>
+          <td onclick="myFunction(this)"></td>
+          <td onclick="myFunction(this)"></td>
+          <td onclick="myFunction(this)"></td>
+          <td onclick="myFunction(this)"></td>
+          <td onclick="myFunction(this)"></td>
+          <td onclick="myFunction(this)"></td>
+          <td onclick="myFunction(this)"></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        </tr>
+        <tr>
+          <td rowspan="2" onclick="myFunction(this)">
+            <i class="fas fa-user-circle"></i>
+          </td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        </tr>
+        <tr>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+          <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        </tr>
+      </tbody>
+    </table>
+    <% } %>
+    <% if(trip.typeOfBus === 0) { %>
+    <table id="myTable<%= token %>" class="table-hover">
+      <tr>
+        <td onclick="myFunction(this)" style="border-style: none;"></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+      </tr>
+
       <tr>
         <td onclick="myFunction(this)"></td>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
         <td onclick="myFunction(this)"></td>
         <td onclick="myFunction(this)"></td>
         <td onclick="myFunction(this)"></td>
@@ -53,47 +177,6 @@
         <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
         <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
         <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-      </tr>
-
-      <tr>
-        <td onclick="myFunction(this)"></td>
-        <td onclick="myFunction(this)"></td>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-      </tr>
-
-      <tr>
-        <td onclick="myFunction(this)"><i class="fas fa-times-circle"></i></td>
-        <td onclick="myFunction(this)"></td>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-      </tr>
-    </tbody>
-  </table>
-  <% } %>
-
-  <% if(trip.typeOfBus === 29) { %>
-  <table id="myTable<%= token %>" style="border: 1px solid black; font-size: 13px;">
-    <tbody>
-      <tr>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-        <td onclick="myFunction(this)"></td>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-      </tr>
-
-      <tr>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-        <td onclick="myFunction(this)"></td>
-        <td onclick="myFunction(this)"></td>
         <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
         <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
         <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
@@ -109,19 +192,17 @@
         <td onclick="myFunction(this)"></td>
         <td onclick="myFunction(this)"></td>
         <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
         <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
       </tr>
+
       <tr>
-        <td rowspan="2" onclick="myFunction(this)"><i class="fas fa-times-circle"></i></td>
+        <td onclick="myFunction(this)"></td>
         <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
         <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
         <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
-      </tr>
-      <tr>
         <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
         <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
         <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
@@ -131,8 +212,99 @@
         <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
       </tr>
 
-    </tbody>
-  </table>
-  <% } %>
-  <button onclick="checkArray()">Ssss</button>
+      <tr>
+        <td onclick="myFunction(this)" style="background-color: gray;"></td>
+        <td onclick="myFunction(this)" style="background-color: gray;"></td>
+        <td onclick="myFunction(this)" style="background-color: gray;"></td>
+        <td onclick="myFunction(this)" style="background-color: gray;"></td>
+        <td onclick="myFunction(this)" style="background-color: gray;"></td>
+        <td onclick="myFunction(this)" style="background-color: gray;"></td>
+        <td onclick="myFunction(this)" style="background-color: gray;"></td>
+        <td onclick="myFunction(this)" style="background-color: gray;"></td>
+        <td onclick="myFunction(this)" style="background-color: gray;"></td>
+        <td onclick="myFunction(this)" style="background-color: gray;"></td>
+        <td onclick="myFunction(this)" style="background-color: gray;"></td>
+      </tr>
+
+      <tr>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+      </tr>
+
+      <tr>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+      </tr>
+
+      <tr>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+      </tr>
+
+      <tr>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+
+      </tr>
+
+      <tr>
+        <td rowspan="2" onclick="myFunction(this)">
+          <i class="fas fa-user-circle"></i>
+        </td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+        <td onclick="myFunction(this)"><i class="fas fa-chair"></i></td>
+      </tr>
+    </table>
+
+    <% } %>
+    <br>
+    Chú thích <br><br> Ghế đã được đặt <span style="border: 1px solid; background-color: red;padding: 9px;"><i class="fas fa-chair"></i></span>
+    Ghế trống <span style="border: 1px solid;padding: 9px;"><i class="fas fa-chair"></i></span>
+    Ghế đã chọn <span style="border: 1px solid; background-color: green;padding: 9px;"><i class="fas fa-chair"></i></span>
+    Ghế tài xế <span style="border: 1px solid;padding: 9px;"><i class="fas fa-user-circle"></i></span>
+  </center>
 </div>

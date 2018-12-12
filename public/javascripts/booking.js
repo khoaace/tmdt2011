@@ -28,7 +28,7 @@
    if (
      table.rows[tr].cells[td].innerHTML === "" ||
      table.rows[tr].cells[td].innerHTML ===
-       '<i class="fas fa-times-circle"></i>' ||
+       '<i class="fas fa-user-circle"></i>' ||
        table.rows[tr].cells[td].style["background-color"] === "red"
    ){
        return;
