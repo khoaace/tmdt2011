@@ -81,7 +81,7 @@ module.exports = {
 			licensePlate : req.body.licensePlate,
             reservations : req.body.reservations,
             price : req.body.price,
-
+            imageBus: req.body.imageBus,
         });
 
         trips.save(function (err, trips) {
@@ -122,6 +122,7 @@ module.exports = {
 			trips.licensePlate = req.body.licensePlate ? req.body.licensePlate : trips.licensePlate;
             trips.reservations = req.body.reservations ? req.body.reservations : trips.reservations;
             trips.price = req.body.price ? req.body.price : trips.price;
+            trips.imageBus = req.body.imageBus ? req.body.imageBus : trips.imageBus;
 			
             trips.save(function (err, trips) {
                 if (err) {

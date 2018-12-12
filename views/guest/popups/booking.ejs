@@ -36,6 +36,10 @@
       <li class="list-group-item"><span class="badge badge-pill badge-primary">Giá vé </span>: <strong style="color:blueviolet;">
           <%= trip.price.toLocaleString(undefined, { minimumFractionDigits: 0 }) %>(VND)</strong></li>
     </ul>
+    <center><h3>Hình ảnh Xe</h3>
+      <img src="<%= trip.imageBus %>" style="width: 400px; height: auto;" />
+  </center>
+
   </div>
   <hr>
   <center>
@@ -307,4 +311,6 @@
     Ghế đã chọn <span style="border: 1px solid; background-color: green;padding: 9px;"><i class="fas fa-chair"></i></span>
     Ghế tài xế <span style="border: 1px solid;padding: 9px;"><i class="fas fa-user-circle"></i></span>
   </center>
+  <hr>
+
 </div>

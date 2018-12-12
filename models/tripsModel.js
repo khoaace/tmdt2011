@@ -15,6 +15,7 @@ var tripsSchema = new Schema({
 	'licensePlate': String,
 	'reservations': Array,
 	'price': Number,
+	'imageBus': String,
 });
 
 tripsSchema.plugin(mongoosePaginate);
