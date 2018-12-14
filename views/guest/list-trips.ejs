@@ -91,6 +91,7 @@
                 async:true,
             }).done(async function (res) {
                 $("#bookingTripBody").html(res); 
+                currentReservationArray = [];
                 await $.getScript("/javascripts/booking.js");
             }).fail(function (data) {
             });

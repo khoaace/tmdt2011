@@ -1,4 +1,5 @@
 var User = require("../models/usersModel");
+var bookingController = require("../controllers/bookingController.js");
 module.exports = function(app, passport) {
 
   /*------------------------------Đăng nhập-------------------------------------*/
@@ -47,6 +48,8 @@ module.exports = function(app, passport) {
     res.render("user/profile", { title: "Profile ", user: req.session.user });
   });
 
+  app.get("/history-purchase", isLoggedIn, bookingController.showByUser);
+
   // Tạo tài khoản Admin
   app.get('/setup', function (req, res) {
     // create a sample user
@@ -63,6 +66,8 @@ module.exports = function(app, passport) {
         console.log('User saved successfully');
     });
 });
+
+
 };
 
 /*-------------------Các hàm hỗ trợ xác thực-------------------------*/

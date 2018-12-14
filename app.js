@@ -10,6 +10,7 @@ var passport = require("passport");
 var indexRouter = require("./routes/index");
 var dashboardAgencyRouter = require("./routes/dashboardAgency");
 var tripsRouter = require("./routes/tripsRoutes");
+var bookingRouter = require("./routes/bookingRoutes");
 
 var configDB = require("./config/database");
 var session = require("express-session");
@@ -42,6 +43,7 @@ require("./config/passport")(passport);
 app.use("/", indexRouter);
 app.use("/trips", tripsRouter);
 app.use("/dashboard", dashboardAgencyRouter);
+app.use("/booking", bookingRouter);
 
 //connect to database
 mongoose.connect(

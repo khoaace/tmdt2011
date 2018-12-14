@@ -1,0 +1,162 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="row p-5">
+                        <div class="col-md-6">
+                            <h1>EC1805</h1>
+                        </div>
+
+                        <div class="col-md-6 text-right">
+                            <p class="font-weight-bold mb-1" id="idBooking">
+                                Mã vé : <%= idBooking %>
+                            </p>
+                            Date: <p class="text-muted" id="dateBooking">
+                                <%= dateBooking %>
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row pb-5 p-5">
+                        <div class="col-md-6">
+                            <p class="font-weight-bold mb-4">Client Information</p>
+                            <p class="mb-1">
+                                <% user.fullname %>
+                            </p>
+                            <p>
+                                <%= user.email %>
+                            </p>
+                        </div>
+
+                        <div class="col-md-6 text-right">
+                            <p class="font-weight-bold mb-4">Payment Details</p>
+                            <p class="mb-1"><span class="text-muted">Nhà xe: </span>
+                                <%= agency.agencyName %>
+                            </p>
+                            <p class="mb-1"><span class="text-muted">Số điện thoại: </span>
+                                <%= agency.agencyPhoneNumber %>
+                            </p>
+                            <p class="mb-1"><span class="text-muted">Địa chỉ: </span>
+                                <%= agency.agencyAdress %>
+                            </p>
+                            <p class="mb-1"><span class="text-muted">Điểm đi: </span>
+                                <%= trip.departure %> (
+                                <%= moment(trip.departureTime,"HH:mm:ss").format("hh:mm A (DD-MM-YYYY)") %>) </p>
+                            <p class="mb-1"><span class="text-muted">Điểm đến: </span>
+                                <%= trip.destination %> (
+                                <%= moment(trip.arrivialTime,"HH:mm:ss").format("hh:mm A (DD-MM-YYYY)") %>) </p>
+                        </div>
+                    </div>
+
+                    <div class="row p-5">
+                        <div class="col-md-12">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="border-0 text-uppercase small font-weight-bold">Vị trí ghế</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">Giá vé</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for(let i=0; i<reservations.length; i++) { %>
+                                    <tr>
+                                        <td>
+                                            <%= reservations[i] %>
+                                        </td>
+                                        <td>
+                                            <%= trip.price %>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-row-reverse bg-dark text-white p-4">
+                        <div class="py-3 px-5 text-right">
+                            <div class="mb-2"> Tổng tiền</div>
+                            <div class="h2 font-weight-light" ><%= total.toLocaleString(undefined, { minimumFractionDigits: 0 }) %>(VND)</div>
+                            <input type="text" style="display: none;" id="totalMoney" value="<%= total %>" >
+                            <div id="paypal-button"></div>
+                        </div>
+                    </div>
+             
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" value="<%= trip._id %>" id="bookingTrip" />
+<input type="hidden" value="<%= user._id %>" id="bookingUser" />
+<input type="hidden" value="<%= total %>" id="bookingTotalMoney" />
+<input type="hidden" value="<%= idBooking %>" id="bookingCode" />
+<input type="hidden" value="<%= trip.agency %>" id="bookingAgency" />
+
+
+<script>
+  paypal.Button.render({
+    // Configure environment
+    env: 'sandbox',
+    client: {
+      sandbox: 'demo_sandbox_client_id',
+      production: 'demo_production_client_id'
+    },
+    // Customize button (optional)
+    locale: 'en_US',
+    style: {
+      size: 'small',
+      color: 'gold',
+      shape: 'pill',
+    },
+
+    // Enable Pay Now checkout flow (optional)
+    commit: true,
+
+    // Set up a payment
+    payment: function(data, actions) {
+        const total = parseInt(parseInt($("#totalMoney").val()) / 23000);
+        console.log(total);
+      return actions.payment.create({
+        transactions: [{
+          amount: {
+            total: total.toString(),
+            currency: 'USD'
+          }
+        }]
+      });
+    },
+      // Execute the payment
+      onAuthorize: function (data, actions) {
+          return actions.payment.execute().then(function () {
+              $.ajax({
+                  type: 'PUT',
+                  url: "/trips/updateReservation/" + $("#bookingTrip").val(),
+              }).done(function (data) {
+                  const payload = {
+                    code: $("#bookingCode").val(),
+                    user: $("#bookingUser").val(),
+                    trip: $("#bookingTrip").val(),
+                    agency: $("#bookingAgency").val(),
+                    totalMoney: $("#bookingTotalMoney").val(),
+                  };
+                    $.ajax({
+                    type: 'POST',
+                    url: "/booking/",
+                    data: payload
+                }).done(function (data) {
+                    window.location.href = "/";
+                }).fail(function (data) {
+                    console.log(data);
+                });
+              }).fail(function (data) {
+                  console.log(data);
+              });
+          });
+      }
+  }, '#paypal-button');
+
+</script>

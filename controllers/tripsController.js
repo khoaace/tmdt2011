@@ -169,7 +169,13 @@ module.exports = {
                     message: 'No such trips'
                 });
             }
-            trips.reservations = req.body['reservations[]'] ? req.body['reservations[]'] : trips.reservations;
+            let tempReservations = req.session.booking['reservations[]'];
+            let reservations = [];
+            if (typeof (tempReservations) === "string")
+                reservations.push(tempReservations);
+            else
+                reservations = tempReservations;
+            trips.reservations = reservations ? reservations : trips.reservations;
             await trips.save(function (err, trips) {
                 if (err) {
                     return res.status(500).json({
