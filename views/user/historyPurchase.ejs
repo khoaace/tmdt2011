@@ -4,54 +4,84 @@
       <a href="/profile" class="list-group-item list-group-item-action "
         >Thông tin cá nhân</a
       >
-      <a href="/history-purchase" class="list-group-item list-group-item-action active"
+      <a
+        href="/history-purchase"
+        class="list-group-item list-group-item-action active"
         >Lịch sử mua hàng</a
       >
     </div>
   </div>
   <div class="col-md-9">
     <% for(let i=0; i < bookings.length; i++) { %>
-        <div class="card">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <h4>Mã vé <%= bookings[i].code %></h4>
-                      <hr />
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <form>
-                        <div class="form-group row">
-                          <label for="username" class="col-4 col-form-label"
-                            >Nhà xe :</label
-                          >
-                          <div class="col-8"><%= bookings[i].agency.agencyName %></div>
-                        </div>
-                        <div class="form-group row">
-                          <label for="name" class="col-4 col-form-label">Điểm đi :</label>
-                          <div class="col-8"><%= bookings[i].trip.departure %></div>
-                          <label for="name" class="col-4 col-form-label">Thời gian :</label>
-                          <div class="col-8"><%= bookings[i].trip.departureTime %></div>
-                        </div>
-                        <div class="form-group row">
-                                <label for="name" class="col-4 col-form-label">Điểm đến :</label>
-                                <div class="col-8"><%= bookings[i].trip.destination %></div>
-                                <label for="name" class="col-4 col-form-label">Thời gian :</label>
-                                <div class="col-8"><%= bookings[i].trip.arrivialTime %></div>
-                              </div>
-                        <div class="form-group row">
-                          <label for="lastname" class="col-4 col-form-label"
-                            >Vị trí ghế :</label
-                          >
-                          <div class="col-8"><%= bookings[i].seatCode %></div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <h4>Mã vé <%= bookings[i].code %></h4>
+            <hr />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+              <div class="form-group row">
+                <label for="username" class="col-4 col-form-label"
+                  >Nhà xe :</label
+                >
+                <div class="col-8"><%= bookings[i].agency.agencyName %></div>
               </div>
-              <br><br>  
+              <div class="form-group row">
+                <label for="name" class="col-4 col-form-label">Điểm đi :</label>
+                <div class="col-8"><%= bookings[i].trip.departure %></div>
+                <label for="name" class="col-4 col-form-label"
+                  >Thời gian :</label
+                >
+                <div class="col-8"><%= bookings[i].trip.departureTime %></div>
+              </div>
+              <div class="form-group row">
+                <label for="name" class="col-4 col-form-label"
+                  >Điểm đến :</label
+                >
+                <div class="col-8"><%= bookings[i].trip.destination %></div>
+                <label for="name" class="col-4 col-form-label"
+                  >Thời gian :</label
+                >
+                <div class="col-8"><%= bookings[i].trip.arrivialTime %></div>
+              </div>
+              <div class="form-group row">
+                <label for="lastname" class="col-4 col-form-label"
+                  >Vị trí ghế :</label
+                >
+                <div class="col-8"><%= bookings[i].seatCode %></div>
+              </div>
+              <input type="hidden" style="display: none;" value="<%= bookings[i].trip._id %>" id="idTrip<%= bookings[i]._id %>" >
+              <input type="hidden" style="display: none;" value="<%= bookings[i].seatCode %>" id="seats<%= bookings[i]._id %>" >
+              <input type="hidden" style="display: none;" value="<%= bookings[i]._id %>" id="idBooking<%= bookings[i]._id %>" >
+              <button class="btn btn-danger" onclick="cancelTicket('<%= bookings[i]._id %>');">Hủy vé</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br /><br />
     <% } %>
   </div>
 </div>
+<script>
+  function cancelTicket(id) {
+    const data = {
+      id: $("#idBooking"+id).val(),
+      seats: $("#seats"+id).val(),
+      idTrip: $("#idTrip"+id).val(),
+    };
+    $.ajax({
+      type: "POST",
+      url: "/booking/cancel",
+      data: data
+    })
+      .done(function(data) {
+        window.location.href('/');
+      })
+      .fail(function(data) {
+        //
+      });
+  }
+</script>

@@ -13,9 +13,10 @@ var tripsSchema = new Schema({
 	'arrivialTime': Date,
 	'typeOfBus': Number,
 	'licensePlate': String,
-	'reservations': Array,
+	'reservations': Array,	
 	'price': Number,
 	'imageBus': String,
+	'expireDate': Number,
 });
 
 tripsSchema.plugin(mongoosePaginate);

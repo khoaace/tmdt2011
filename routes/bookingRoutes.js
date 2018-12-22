@@ -27,4 +27,9 @@ router.put('/:id', bookingController.update);
  */
 router.delete('/:id', bookingController.remove);
 
+/*
+ * cancelTicket
+ */
+router.post('/cancel', bookingController.cancel);
+
 module.exports = router;

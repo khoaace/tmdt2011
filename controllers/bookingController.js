@@ -1,6 +1,7 @@
 var bookingModel = require('../models/bookingModel.js');
 var agency = require('../models/usersModel.js');
-var trip = require('../models/tripsModel');
+var trip = require('../models/tripsModel.js');
+var _ = require('lodash');
 var moment = require('moment');
 /**
  * bookingController.js
@@ -144,5 +145,51 @@ module.exports = {
             }
             res.render("user/historyPurchase", { title: "History Purchase ", user: req.session.user, bookings: booking, moment: moment });
         });
+    },
+    cancel: async function(req, res){
+        const { id, seats, idTrip } = req.body;
+        console.log(req.body);
+        seatsArray = seats.split(",");
+        console.log(seatsArray);
+/* 
+        await bookingModel.findOneAndDelete({ _id: id }, async function(err, booking){
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when deleting the booking.',
+                    error: err
+                });
+            }  */
+           await trip.findOne({ _id: idTrip }, async function(err, newtrip){
+                if (err) {
+                    return res.status(500).json({
+                        message: 'Error.',
+                        error: err
+                    });
+                }
+                let newReser = newtrip.reservations.slice(",");
+                console.log(newReser);
+                for(let i=0; i < seatsArray.length; i++){
+                    let pos = newReser.indexOf(seatsArray[i]);   
+                    newReser.slice(pos, 1);
+                }
+                console.log(typeof(newReser));
+                console.log(typeof(newtrip.reservations));
+                if(newReser === undefined || newReser === null)
+                newtrip.reservations = [];
+                else
+                newtrip.reservations = newReser;
+                await console.log(newtrip.reservations);
+                  await newtrip.save(function (err, triptest) {
+                    if (err) {
+                        return res.status(500).json({
+                            message: 'Error when updating booking.',
+                            error: err
+                        });
+                    }
+                    console.log(triptest);
+                    return res.send('ok');
+                });  
+            });
+  /*       });   */
     }
 };

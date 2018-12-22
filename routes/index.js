@@ -88,6 +88,8 @@ router.post("/getPayment", function (req, res, next) {
   res.send('ok');
 });
 
+
+
 /* GET home page. */
 router.get("/error", function (req, res, next) {
   res.render("error", { title: "Error", message: req.flash("info"), user: req.session.user });

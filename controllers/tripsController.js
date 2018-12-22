@@ -82,6 +82,7 @@ module.exports = {
             reservations : req.body.reservations,
             price : req.body.price,
             imageBus: req.body.imageBus,
+            expireDate: req.body.expireDate,
         });
 
         trips.save(function (err, trips) {
