@@ -186,7 +186,6 @@ module.exports = {
                             error: err
                         });
                     }
-					console.log("​done");
                     await res.send('ok');
                 });  
             });
