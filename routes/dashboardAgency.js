@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var tripsController = require("../controllers/tripsController.js");
+var dashboardController = require('../controllers/dashboardAgencyController');
 
 /*-----------------------------------Xác thực tài khoản----------------------------*/
 router.use(function(req, res, next) {
@@ -19,43 +20,17 @@ router.use(function(req, res, next) {
   }
 });
 
-//---> /dashboard/ (view)
 
-router.get("/", function(req, res, next) {
-  res.render("dashboard-agency/index", {
-    title: "Quản lý nhà xe",
-    user: req.session.user,
-    layout: "layouts/dashboardLayout"
-  });
-});
-router.get("/new-trip", function(req, res, next) {
-  res.render("dashboard-agency/newScheduleAgency", {
-    title: "Thêm lịch trình mới ",
-    user: req.session.user,
-    layout: "layouts/dashboardLayout",
-    message: req.flash("info")
-  });
-});
 
-router.get("/list-trips", function(req, res, next) {
-  res.render("dashboard-agency/listScheduleAgency", {
-    title: "Danh sách lịch trình ",
-    user: req.session.user,
-    layout: "layouts/dashboardLayout",
-    message: req.flash("info")
-  });
-});
-
-//-> /Define API/
-// Trips/
-router.post("/new-trip", tripsController.create);
-
+router.get("/", dashboardController.dashboard);
+router.get("/new-trip", dashboardController.newTrip);
+router.get("/list-trips", dashboardController.listTrips);
 router.get("/getTrip/:id", tripsController.show);
+router.get("/generator", tripsController.generateListTrip);
 
+router.post("/new-trip", tripsController.create);
 router.get("/getListtripPaginate", tripsController.getListPaginate);
-
 router.post("/removeTrip", tripsController.remove);
 
-router.get("/generator", tripsController.generateListTrip);
 
 module.exports = router;

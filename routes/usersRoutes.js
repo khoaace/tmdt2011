@@ -1,73 +1,31 @@
 var User = require("../models/usersModel");
+var userController = require("../controllers/userController");
 var bookingController = require("../controllers/bookingController.js");
-module.exports = function(app, passport) {
 
-  /*------------------------------Đăng nhập-------------------------------------*/
+module.exports = function(app, passport) {
+  app.get("/signin", isUnLoggedIn, userController.signin);
+  app.get("/signup", userController.signup);
+  app.get("/logout", userController.logout);
+  app.get("/profile", isLoggedIn, userController.profile);
+  app.get("/history-purchase", isLoggedIn, bookingController.showByUser);
+  app.get("/setup", userController.setupAdmin);
+
   app.post(
     "/signin",
     passport.authenticate("local-login", {
-      successRedirect: "/profile", // chuyển hướng tới trang được bảo vệ
-      failureRedirect: "/signin", // trở lại trang đăng ký nếu có lỗi
-      failureFlash: true // allow flash messages
+      successRedirect: "/profile",
+      failureRedirect: "/signin",
+      failureFlash: true
     })
   );
-
-  app.get("/signin", isUnLoggedIn, function(req, res) {
-    if (req.user != null) res.redirect("/");
-    res.render("user/signin", {
-      title: "Đăng nhập",
-      message: req.flash("info")
-    });
-  });
-   
-    /*----------------------Đăng kí--------------------------*/
-    app.get("/signup", function(req, res) {
-      res.render("user/signup", {
-        title: "EC1805 - Đăng kí",
-        message: req.flash("info")
-      });
-    });
-    
-    app.post(
-      "/signup",
-      passport.authenticate("local-signup", {
-        successRedirect: "/profile", // chuyển hướng tới trang được bảo vệ
-        failureRedirect: "/signup", // trở lại trang đăng ký nếu có lỗi
-        failureFlash: true // allow flash messages
-      })
-    );
-  /* --------------------------------- Đăng xuất ----------------------------*/
-  app.get("/logout", function(req, res) {
-    // create a sample user
-    req.session.destroy();
-    req.logout();
-    res.redirect("/");
-  });
-
-  app.get("/profile", isLoggedIn,function(req, res, next) {
-    res.render("user/profile", { title: "Profile ", user: req.session.user });
-  });
-
-  app.get("/history-purchase", isLoggedIn, bookingController.showByUser);
-
-  // Tạo tài khoản Admin
-  app.get('/setup', function (req, res) {
-    // create a sample user
-    var date = new Date();
-    var user = new User();
-    user.username = 'admin';
-    user.password = user.generateHash('123123');
-    user.birthDay="1997-1-1";
-    user.createDate = date;
-    user.email = "khoaace@gmail.com";
-    // save the sample user
-    user.save(function (err) {
-        if (err) throw err;
-        console.log('User saved successfully');
-    });
-});
-
-
+  app.post(
+    "/signup",
+    passport.authenticate("local-signup", {
+      successRedirect: "/profile",
+      failureRedirect: "/signup",
+      failureFlash: true
+    })
+  );
 };
 
 /*-------------------Các hàm hỗ trợ xác thực-------------------------*/
