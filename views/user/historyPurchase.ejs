@@ -67,7 +67,9 @@
 </div>
 <script>
   function cancelTicket(id) {
-    const data = {
+    if(confirm('You really want to cancel the ticket'))
+    {
+      const data = {
       id: $("#idBooking"+id).val(),
       seats: $("#seats"+id).val(),
       idTrip: $("#idTrip"+id).val(),
@@ -84,5 +86,6 @@
       .fail(function(err) {
 				console.log("​cancelTicket -> err", err);
       });
+    }
   }
 </script>
