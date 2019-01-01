@@ -75,13 +75,16 @@
     $.ajax({
       type: "POST",
       url: "/booking/cancel",
-      data: data
+      data: data,
+      async: false
     })
       .done(function(data) {
-        window.location.href('/');
+        console.log('Ok');
+        console.log(data);
+        window.location.href="/history-purchase";
       })
-      .fail(function(data) {
-        //
+      .fail(function(err) {
+				console.log("​cancelTicket -> err", err);
       });
   }
 </script>
