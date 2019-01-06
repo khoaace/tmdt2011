@@ -17,6 +17,8 @@ router.get("/list-trips-agency/:id/:page", guestController.listTripsAgency);
 
 router.get("/list-trips-type/:type/:page", guestController.listTripsType);
 
+router.post("/list-trips-search", guestController.listTripsSearch);
+
 router.get("/payment", isLoggedIn, guestController.payment);
 
 router.post("/getPayment", guestController.getPayment);

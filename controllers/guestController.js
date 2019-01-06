@@ -89,6 +89,39 @@ module.exports = {
       });
     });
   },
+  listTripsSearch: async function (req, res) {
+    const { departure, destination, departureTime } = req.body;
+		console.log("​req.body", req.body);
+    let promise = [];
+
+/*     if(departure !== '' && destination === '' && departureTime === '')
+      promise.push(tripsModel.find({departure: departure}));
+    if(departure === '' && destination !== '' && departureTime === '')
+      promise.push(tripsModel.find({destination: destination}));
+    if(departure === '' && destination === '' && departureTime !== '')
+      promise.push(tripsModel.find({departureTime: {$lt: new Date(departureTime)}}));
+
+    if(departure !== '' && destination !== '' && departureTime === '')
+      promise.push(tripsModel.find({departure: departure, destination: destination}));
+    if(departure !== '' && destination === '' && departureTime !== '')
+      promise.push(tripsModel.find({departure: departure, departureTime: {$lt: new Date(departureTime)}}));
+    if(departure === '' && destination !== '' && departureTime !== '')
+      promise.push(tripsModel.find({destination: destination, departureTime: {$lt: new Date(departureTime)}}));
+
+    if(departure !== '' && destination !== '' && departureTime !== '')
+      promise.push(tripsModel.find({departure: departure, destination: destination, departureTime: {$lt: new Date(departureTime)}}));
+     */
+    let time = new moment(departureTime).format();
+		console.log("​time", time);
+    
+
+    await tripsModel.find({ departureTime: {$lte: time} }, (err, result)=>{
+        if(err)
+        throw err;
+        console.log("​result", result);
+        res.send(result);
+    });
+  },
   payment: async function (req, res) {
     if (req.session.booking) {
 
