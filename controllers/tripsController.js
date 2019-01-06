@@ -241,11 +241,19 @@ module.exports = {
             }
             return res.send("ok")
         });
+    },
+    showTripsBySearch: async function (key) {
+        agency.findOne({ agencyName: key },async (err, agencyResult)=>{
+            if(err)
+            throw new Error('Can not find this Agency');
+            await tripsModel.find({ agency: agencyResult._id }, (err, tripsResult)=>{
+                if(err)
+                throw new Error('Can not find Trips');
+                return tripsResult;
+            });
+        })
+       
     }
-
-
-
-
 };
 
 
