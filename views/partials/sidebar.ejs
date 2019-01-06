@@ -1,9 +1,25 @@
 <div class="col-12 col-sm-3">
-        <div class="card bg-light mb-3">
-            <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Categories</div>
-            <ul class="list-group category_block">
-                <li class="list-group-item"><a href="/list-trips/1">Tất cả lịch trình</a></li>
-                <li class="list-group-item"><a href="#">Test</a></li>
-            </ul>
-        </div>
+    <div class="card bg-light mb-3">
+
+        <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Tất cả lịch trình</div>
+        <ul class="list-group category_block">
+            <li class="list-group-item"><a href="/list-trips/1">Mới nhất</a></li>
+        </ul>
+
+        <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Loại xe</div>
+        <ul class="list-group category_block">
+            <li class="list-group-item"><a href="/list-trips-type/16/1">16 chỗ</a></li>
+            <li class="list-group-item"><a href="/list-trips-type/29/1">29 chỗ</a></li>
+            <li class="list-group-item"><a href="/list-trips-type/0/1">Giường Nằm</a></li>
+        </ul>
+
+        <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Nhà xe</div>
+        <ul class="list-group category_block">
+            <% listAgency.forEach(e=>{ %>
+                <% let url = `/list-trips-agency/${e._id}/1` %>
+                    <li class="list-group-item"><a href="<%= url %>"><%= e.agencyName?e.agencyName:'Noname' %></a></li>
+               <% }); %>
+        </ul>
+
     </div>
+</div>

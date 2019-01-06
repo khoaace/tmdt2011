@@ -1,1 +1,20 @@
-Hello
+<div class="row">
+    <% include ./partials/sidebar %>
+    <div style="width: 70%">
+        <div class="input-group date" data-provide="datepicker">
+                <p>Chọn ngày khởi hành: <input type="text" id="datepicker"></p>
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  $( function() {
+    $( "#datepicker" ).datepicker({
+      numberOfMonths: 2,
+      showButtonPanel: true
+    });
+  } );
+</script>
