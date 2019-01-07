@@ -1,3 +1,30 @@
+     <!-- The Modal -->
+     <div class="modal fade" id="bookingTrip">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+      
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Đặt vé</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+      
+            <!-- Modal body -->
+            <div class="modal-body" id="bookingTripBody">
+                <div class="loader"></div>
+            </div>
+      
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="bookTicket();" >Submit</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+      
+          </div>
+        </div>
+      </div>
+    <!-- End Modal   --> 
+
 <div class="row">
     <% include ./partials/sidebar %>
     <div style="width: 70%">
@@ -70,7 +97,7 @@
             <option value="Tp.Hà Nội">Tp.Hà Nội
             <option value="TP  HCM">TP HCM
         </select>
-
+        <br><br>
         <select name="cars" class="custom-select" id="destination">
             <option value="" selected>Chọn địa điểm khởi hành</option>
             <option value="An Giang">An Giang
@@ -139,7 +166,7 @@
             <option value="Tp.Hà Nội">Tp.Hà Nội
             <option value="TP  HCM">TP HCM
         </select>
-
+        <br><br>
         <div class="input-group date" data-provide="datepicker">
             <div class="input-group mb-3">
                 <input class="form-control" type="text" id="datepicker" placeholder="Chọn ngày khởi hành" id="departureTime">
@@ -170,6 +197,9 @@
             departureTime: $('#datepicker').val()
         };
 
+        if (input.departure === '' && input.destination && input.departureTime)
+            alert('Không hợp lệ');
+
         console.log("​searchTrips -> input", input);
 
         $.ajax({
@@ -182,6 +212,21 @@
         }).fail(function (data) {
 
         });
+    }
 
+    function getInfoTrip(id) {
+        $('#bookingTrip').modal('show');
+        $("#bookingTripBody").html('<center><div class="loader"></div></center>');
+        $.ajax({
+            type: 'GET',
+            url: '/trips/' + id,
+            cache: false,
+            async: true,
+        }).done(async function (res) {
+            $("#bookingTripBody").html(res);
+            currentReservationArray = [];
+            await $.getScript("/javascripts/booking.js");
+        }).fail(function (data) {
+        });
     }
 </script>

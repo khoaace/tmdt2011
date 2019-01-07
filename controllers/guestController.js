@@ -52,7 +52,7 @@ module.exports = {
   listTripsAgency: async function (req, res) {
     let perPage = 10;
     let page = req.params.page || 1;
-    let id = req.params.id;  
+    let id = req.params.id;
 
     tripsModel.paginate({ agency: id }, { offset: (perPage * page) - perPage, limit: perPage }, async function (err, result) {
       await tripsModel.find({ agency: id }, function (err, trips) {
@@ -91,35 +91,29 @@ module.exports = {
   },
   listTripsSearch: async function (req, res) {
     const { departure, destination, departureTime } = req.body;
-		console.log("​req.body", req.body);
-    let promise = [];
+    console.log("​req.body", req.body);
 
-/*     if(departure !== '' && destination === '' && departureTime === '')
-      promise.push(tripsModel.find({departure: departure}));
-    if(departure === '' && destination !== '' && departureTime === '')
-      promise.push(tripsModel.find({destination: destination}));
-    if(departure === '' && destination === '' && departureTime !== '')
-      promise.push(tripsModel.find({departureTime: {$lt: new Date(departureTime)}}));
+    let input = {};
 
-    if(departure !== '' && destination !== '' && departureTime === '')
-      promise.push(tripsModel.find({departure: departure, destination: destination}));
-    if(departure !== '' && destination === '' && departureTime !== '')
-      promise.push(tripsModel.find({departure: departure, departureTime: {$lt: new Date(departureTime)}}));
-    if(departure === '' && destination !== '' && departureTime !== '')
-      promise.push(tripsModel.find({destination: destination, departureTime: {$lt: new Date(departureTime)}}));
 
-    if(departure !== '' && destination !== '' && departureTime !== '')
-      promise.push(tripsModel.find({departure: departure, destination: destination, departureTime: {$lt: new Date(departureTime)}}));
-     */
-    let time = new moment(departureTime).format();
-		console.log("​time", time);
-    
+    if (departure !== '')
+      input.departure = departure;
+    if (destination !== '')
+      input.destination = destination;
+    if (departureTime !== '')
+    {
+      let time = new moment(departureTime).format();
+      input.departureTime = { "$gte": new Date(time) };
+    }
+      
 
-    await tripsModel.find({ departureTime: {"$gte": new Date(time)} }, (err, result)=>{
-        if(err)
+    console.log("​input", input);
+
+    await tripsModel.find(input, (err, result) => {
+      if (err)
         throw err;
-        console.log("​result", result);
-        res.render("guest/list-trips-search",
+      console.log("​result", result);
+      res.render("guest/list-trips-search",
         {
           title: "EC1805 - Payment ",
           trips: result,
