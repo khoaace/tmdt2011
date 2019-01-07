@@ -1,0 +1,126 @@
+<div class="table-responsive">
+        <table id="example" class="table table-striped table-bordered dt-responsive nowrap">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>User</th>
+              <th>Departure</th>
+              <th>Destination</th>
+              <th>Reservations</th>
+              <th>Total Money</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      
+      <script>
+        var table = $("#example").DataTable({
+          processing: true,
+          serverSide: true,
+          bLengthChange: false,
+          paging: true,
+          pageLength: 10,
+          autoWidth: false,
+          ajax: {
+            url: "/dashboard/getListBookingPaginate",
+            type: "GET",
+            dataType: "json"
+          },
+          columns: [
+            {
+              data: "_id",
+              class: "text-center",
+              visible: false,
+              orderable: false,
+              render: function(data, type, row) {
+                return '<a href="#">' + row._id + "</a>";
+              }
+            },
+            {
+              data: "user",
+              class: "text-center",
+              orderable: false,
+              render: function(data, type, row) {
+                return user.username;
+              }
+            },
+            {
+              data: "trip",
+              class: "text-center",
+              orderable: false,
+              render: function(data, type, row) {
+                return row.trip.departure;
+              }
+            },
+            {
+              data: "trip",
+              class: "text-center",
+              orderable: false,
+              render: function(data, type, row) {
+                return row.trip.destination;
+              }
+            },
+            {
+              data: "seatCode",
+              class: "text-center",
+              orderable: false,
+              render: function(data, type, row) {
+                return row.seatCode;
+              }
+            },
+            {
+              data: "totalMoney",
+              class: "text-center",
+              orderable: false,
+              render: function(data, type, row) {
+                return row.totalMoney;
+              }
+            },
+            {
+              data: "licensePlate",
+              class: "text-center",
+              orderable: false,
+              render: function(data, type, row) {
+                return row.licensePlate;
+              }
+            },
+            {
+              data: "reservations",
+              class: "text-center",
+              orderable: false,
+              render: function(data, type, row) {
+                return row.reservations;
+              }
+            },
+            {
+              class: "text-center",
+              orderable: false,
+              render: function(data, type, row) {
+                return (
+                  '<button class="btn btn-danger btn-delete" data-id="' +
+                  row._id +
+                  '">Delete</button>'
+                );
+              }
+            }
+          ]
+        });
+      
+        $(document).on("click", "button.btn-delete", function(event) {
+          const data = {
+            tripId: $(this).attr("data-id")
+          };
+          $.ajax({
+            type: "POST",
+            url: "/dashboard/removeTrip",
+            data: data
+          })
+            .done(res => {
+              table.ajax.reload();
+            })
+            .catch(err => {});
+        });
+      </script>
+      

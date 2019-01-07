@@ -30,6 +30,14 @@ module.exports = {
       message: req.flash("info")
     });
   },
+  listBookings: function(req, res) {
+    res.render("dashboard-agency/listBookingAgency", {
+      title: "Danh sách vé",
+      user: req.session.user,
+      layout: "layouts/dashboardLayout",
+      message: req.flash("info")
+    });
+  },
   showTripsBySearch: async function(req, res) {
     //Temp
     const key = req.query.key;

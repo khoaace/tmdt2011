@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var mongoosePaginate = require('mongoose-paginate');
 var Schema   = mongoose.Schema;
 
 var bookingSchema = new Schema({
@@ -19,5 +20,7 @@ var bookingSchema = new Schema({
 	'createDay' : Date,
 	'seatCode' : Array
 });
+
+bookingSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('booking', bookingSchema);

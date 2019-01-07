@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var tripsController = require("../controllers/tripsController.js");
 var dashboardController = require('../controllers/dashboardAgencyController');
+var bookingController = require('../controllers/bookingController');
 
 /*-----------------------------------Xác thực tài khoản----------------------------*/
 router.use(function(req, res, next) {
@@ -23,13 +24,17 @@ router.use(function(req, res, next) {
 
 
 router.get("/", dashboardController.dashboard);
+
 router.get("/new-trip", dashboardController.newTrip);
 router.get("/list-trips", dashboardController.listTrips);
+router.get("/list-bookings", dashboardController.listBookings);
+
 router.get("/getTrip/:id", tripsController.show);
 router.get("/generator", tripsController.generateListTrip);
 
 router.post("/new-trip", tripsController.create);
 router.get("/getListtripPaginate", tripsController.getListPaginate);
+router.get("/getListBookingPaginate", bookingController.getListPaginate);
 router.post("/removeTrip", tripsController.remove);
 
 

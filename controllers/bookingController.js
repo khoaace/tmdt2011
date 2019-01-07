@@ -190,5 +190,33 @@ module.exports = {
                 });  
             });
         });  
+    },
+    getListPaginate: function (req, res) {
+        let start = parseInt(req.query.start) || 0;
+        let length = parseInt(req.query.length) || 0;
+        bookingModel.find({agency: req.session.user._id},async function (err, bookings) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when getting bookings.',
+                    error: err
+                });
+            }
+            await bookingModel.paginate({agency: req.session.user._id},{ offset: start, limit: length, populate: ['trip', 'agency', 'user' ] }, function (err, result) {
+                if (err) {
+                    return res.status(500).json({
+                        message: 'Error when getting bookings.',
+                        error: err
+                    });
+                }
+                let finalResult = {
+                    draw: req.query.draw,
+                    recordsTotal: bookings.length,
+                    recordsFiltered: bookings.length,
+                    data: result.docs
+                };
+                res.send(finalResult);  
+            });
+
+        });
     }
 };
