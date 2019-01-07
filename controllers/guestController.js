@@ -65,7 +65,6 @@ module.exports = {
           moment: moment,
           user: req.session.user
         });
-
       });
     });
   },

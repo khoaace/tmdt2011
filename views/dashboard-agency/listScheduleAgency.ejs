@@ -52,7 +52,7 @@
         class: "text-center",
         orderable: false,
         render: function(data, type, row) {
-          return moment(row.departureTime, "HH:mm:ss").format(
+          return moment(row.departureTime).format(
             "hh:mm A (DD-MM-YYYY)"
           );
         }
@@ -70,7 +70,7 @@
         class: "text-center",
         orderable: false,
         render: function(data, type, row) {
-          return moment(row.arrivialTime, "HH:mm:ss").format(
+          return moment(row.arrivialTime).format(
             "hh:mm A (DD-MM-YYYY)"
           );
         }
@@ -80,7 +80,12 @@
         class: "text-center",
         orderable: false,
         render: function(data, type, row) {
-          return row.typeOfBus;
+          if(row.typeOfBus === 0)
+            return "Giường nằm";
+          if(row.typeOfBus === 16)
+            return "16 chỗ";
+          if(row.typeOfBus === 29)
+            return "29 chỗ";
         }
       },
       {
