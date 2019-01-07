@@ -1,0 +1,96 @@
+<form action="/update-profile" method="POST">
+<div class="row">
+    <div class="col-md-3 ">
+      <div class="list-group ">
+        <a href="/profile" class="list-group-item list-group-item-action"
+          >Thông tin cá nhân</a
+        >
+        <a href="/history-purchase" class="list-group-item list-group-item-action"
+          >Lịch sử mua hàng</a
+        >
+        <a href="/edit-profile" class="list-group-item list-group-item-action active"
+        >Chỉnh sửa thông tin</a
+        >
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <h4>Thông tin cá nhân</h4>
+              <hr />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+                  <label for="email" class="col-4 col-form-label"
+                    >Email :</label
+                  >
+                  <input type="hidden" class="form-control" id="id" name="id" value="<%= user._id %>">
+                  <input type="email" class="form-control" id="email" name="email" value="<%= user.email %>">
+                </div>
+
+                <div class="form-group row">
+                  <label for="lastname" class="col-4 col-form-label"
+                    >Tên đầy đủ :</label
+                  >
+                  <input type="text" class="form-control" id="fullname" name="fullname" value="<%= user.fullname %>">
+                </div>
+
+                <div class="form-group row">
+                        <label for="lastname" class="col-4 col-form-label"
+                          >Giới tính :</label
+                        >
+                        <select name="gender" class="custom-select" id="gender" name="gender">
+                            <% if (user.gender === 'Nam') { %>
+                                <option value="Nam" selected>Nam</option>
+                                <option value="Nữ" >Nữ</option>
+                            <% }else{ %>
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ" selected>Nữ</option>
+                            <% } %>
+                        </select>                
+                </div>
+
+                <% if(user.agency) { %>
+
+                <div class="form-group row">
+                  <label for="select" class="col-4 col-form-label"
+                    >Tên nhà xe :</label
+                  >
+                  <input type="text" class="form-control" id="agencyName" name="agencyName" value="<%= user.agencyName %>">
+                </div>
+
+                <div class="form-group row">
+                    <label for="select" class="col-4 col-form-label">Địa chỉ nhà xe :</label>
+                    <input type="text" class="form-control" id="agencyAdress" name="agencyAdress" value="<%= user.agencyAdress %>">
+                </div>
+
+                <div class="form-group row">
+                        <label for="select" class="col-4 col-form-label">Số điện thoại nhà xe :</label>
+                        <input type="text" class="form-control" id="agencyPhoneNumber" name="agencyPhoneNumber" value="<%= user.agencyPhoneNumber %>">
+                    </div>
+
+
+                <div class="form-group row">
+                  <label for="publicinfo" class="col-4 col-form-label"
+                    >Mô tả nhà xe :</label
+                  >
+                  <input type="text" class="form-control" id="agencyDiscription" name="agencyDiscription" value="<%= user.agencyDiscription %>">
+                </div>
+                <% } %>
+                <button class="btn btn-primary" type="submit">Cập nhật</button>
+
+            </div>
+          </div>    
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+  <script>
+
+  </script>

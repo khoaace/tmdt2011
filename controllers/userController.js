@@ -1,3 +1,6 @@
+//model
+var userModel = require('../models/usersModel');
+//addon
 var moment = require("moment");
 
 /**
@@ -41,5 +44,44 @@ module.exports = {
       if (err) throw err;
       console.log("User saved successfully");
     });
+  },
+  updateUser: async function (req, res) {
+    const { id, email, fullname, gender, agencyName, agencyAdress, agencyPhoneNumber, agencyDiscription } = req.body;
+
+    console.log('req.body', req.body);
+    await userModel.findOne({_id: id}, async (err, userResult)=>{
+
+      if(err)
+        res.status(500).json({
+          message: 'Error when getting User',
+          error: err
+        });
+      if(!userResult)
+        res.status(404).json({
+          message: 'No such User'
+        });
+
+      userResult.email = email ? email : userResult.email;
+      userResult.fullname = fullname ? fullname : userResult.fullname;
+      userResult.gender = gender ? gender : userResult.gender;
+      userResult.agencyName = agencyName ? agencyName : userResult.agencyName;
+      userResult.agencyAdress = agencyAdress ? agencyAdress : userResult.agencyAdress;
+      userResult.agencyPhoneNumber = agencyPhoneNumber ? agencyPhoneNumber : userResult.agencyPhoneNumber;
+      userResult.agencyDiscription = agencyDiscription ? agencyDiscription : userResult.agencyDiscription;
+
+      await userResult.save().then(()=>{
+        res.redirect('/profile');
+      }).catch(err=>{
+        res.status(500).json({
+          message: 'Error when saving User',
+          error: err
+        });
+      })
+
+    });
+    
+  },
+  getProfileForEdit: function (req, res) {
+    res.render("user/edit-profile", { title: "Edit Profile ", user: req.session.user });
   }
 };

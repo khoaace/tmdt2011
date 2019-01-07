@@ -7,6 +7,8 @@ module.exports = function(app, passport) {
   app.get("/signup", userController.signup);
   app.get("/logout", userController.logout);
   app.get("/profile", isLoggedIn, userController.profile);
+  app.get("/edit-profile", isLoggedIn, userController.getProfileForEdit);
+  app.post("/update-profile", isLoggedIn, userController.updateUser);
   app.get("/history-purchase", isLoggedIn, bookingController.showByUser);
   app.get("/setup", userController.setupAdmin);
 
