@@ -115,11 +115,17 @@ module.exports = {
 		console.log("​time", time);
     
 
-    await tripsModel.find({ departureTime: {$lte: time} }, (err, result)=>{
+    await tripsModel.find({ departureTime: {"$gte": new Date(time)} }, (err, result)=>{
         if(err)
         throw err;
         console.log("​result", result);
-        res.send(result);
+        res.render("guest/list-trips-search",
+        {
+          title: "EC1805 - Payment ",
+          trips: result,
+          moment: moment,
+          layout: 'layouts/noneLayout'
+        });
     });
   },
   payment: async function (req, res) {

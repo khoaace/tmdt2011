@@ -1,0 +1,24 @@
+<% for(var i=0; i<trips.length; i++) { %>
+    <div style="border: 1px dotted black;padding : 1em;">
+        <h4>Điểm đi:
+            <strong>
+                <%= trips[i].departure %></strong>
+        </h4>
+        <h4>Thời gian đi:
+            <strong>
+                <%= moment(trips[i].departureTime, "HH:mm:ss").format("hh:mm A (DD-MM-YYYY)") %></strong>
+        </h4>
+        <h4>Điểm đến:
+            <strong>
+                <%= trips[i].destination %></strong>
+        </h4>
+        <h4>Thời gian đến:
+            <strong>
+                <%= moment(trips[i].arrivialTime, "HH:mm:ss").format("hh:mm A (DD-MM-YYYY)") %>
+            </strong>
+        </h4>
+
+        <button class="btn btn-default"  onclick="getInfoTrip('<%= trips[i]._id %>')">Đặt vé</button>
+    </div>
+    <br/> 
+<% } %>

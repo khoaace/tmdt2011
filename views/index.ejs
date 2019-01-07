@@ -152,7 +152,8 @@
         <center>
             <button class="btn btn-primary" onclick="searchTrips();">Tìm kiếm</button>
         </center>
-
+        <hr>
+        <div id="searchResult"></div>
     </div>
 </div>
 
@@ -176,7 +177,7 @@
             url: '/list-trips-search',
             data: input
         }).done(function (data) {
-            console.log("​searchTrips -> data", data);
+            $('#searchResult').html(data);
 
         }).fail(function (data) {
 
