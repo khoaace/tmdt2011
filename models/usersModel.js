@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+var mongoosePaginate = require('mongoose-paginate');
 var bcrypt = require("bcrypt-nodejs");
 
 var usersSchema = new Schema({
@@ -17,7 +18,7 @@ var usersSchema = new Schema({
   agencyPhoneNumber: String,
   agencyDiscription: String,
 });
-
+usersSchema.plugin(mongoosePaginate);
 // Tạo mã hóa mật khẩu
 usersSchema.methods.generateHash = function(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);

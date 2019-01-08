@@ -11,6 +11,7 @@ var indexRouter = require("./routes/index");
 var dashboardAgencyRouter = require("./routes/dashboardAgency");
 var tripsRouter = require("./routes/tripsRoutes");
 var bookingRouter = require("./routes/bookingRoutes");
+var dashboardAdminRouter = require("./routes/dashboardAdmin");
 
 var configDB = require("./config/database");
 var session = require("express-session");
@@ -44,6 +45,7 @@ app.use("/", indexRouter);
 app.use("/trips", tripsRouter);
 app.use("/dashboard", dashboardAgencyRouter);
 app.use("/booking", bookingRouter);
+app.use("/admin", dashboardAdminRouter);
 
 //connect to database
 mongoose.connect(

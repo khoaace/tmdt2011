@@ -188,8 +188,6 @@ module.exports = {
             });
         });
     },
-
-
     getListPaginate: function (req, res) {
         let start = parseInt(req.query.start) || 0;
         let length = parseInt(req.query.length) || 0;

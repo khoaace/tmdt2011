@@ -8,7 +8,6 @@
               <th>Destination</th>
               <th>Reservations</th>
               <th>Total Money</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -43,7 +42,7 @@
               class: "text-center",
               orderable: false,
               render: function(data, type, row) {
-                return user.username;
+                return row.user.username;
               }
             },
             {
@@ -75,52 +74,11 @@
               class: "text-center",
               orderable: false,
               render: function(data, type, row) {
-                return row.totalMoney;
+                return row.totalMoney.toLocaleString(undefined, { minimumFractionDigits: 0 }) + '(VND)';
               }
             },
-            {
-              data: "licensePlate",
-              class: "text-center",
-              orderable: false,
-              render: function(data, type, row) {
-                return row.licensePlate;
-              }
-            },
-            {
-              data: "reservations",
-              class: "text-center",
-              orderable: false,
-              render: function(data, type, row) {
-                return row.reservations;
-              }
-            },
-            {
-              class: "text-center",
-              orderable: false,
-              render: function(data, type, row) {
-                return (
-                  '<button class="btn btn-danger btn-delete" data-id="' +
-                  row._id +
-                  '">Delete</button>'
-                );
-              }
-            }
           ]
         });
-      
-        $(document).on("click", "button.btn-delete", function(event) {
-          const data = {
-            tripId: $(this).attr("data-id")
-          };
-          $.ajax({
-            type: "POST",
-            url: "/dashboard/removeTrip",
-            data: data
-          })
-            .done(res => {
-              table.ajax.reload();
-            })
-            .catch(err => {});
-        });
+
       </script>
       

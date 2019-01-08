@@ -30,19 +30,23 @@ module.exports = {
   profile: function(req, res) {
     res.render("user/profile", { title: "Profile ", user: req.session.user });
   },
-  setupAdmin: function(req, res) {
+  setupAdmin: async function(req, res) {
     // create a sample user
+    console.log('Comming');
     var date = new Date();
-    var user = new User();
+    var user = new userModel();
     user.username = "admin";
+    user.fullname = "EC1805";
     user.password = user.generateHash("123123");
     user.birthDay = "1997-1-1";
+    user.admin = true;
     user.createDate = date;
     user.email = "khoaace@gmail.com";
     // save the sample user
-    user.save(function(err) {
+    await user.save(function(err) {
       if (err) throw err;
       console.log("User saved successfully");
+      res.send('ok');
     });
   },
   updateUser: async function (req, res) {
@@ -83,5 +87,63 @@ module.exports = {
   },
   getProfileForEdit: function (req, res) {
     res.render("user/edit-profile", { title: "Edit Profile ", user: req.session.user });
+  },
+  getListPaginate: function (req, res) {
+    let start = parseInt(req.query.start) || 0;
+    let length = parseInt(req.query.length) || 0;
+    userModel.find({ agency: false },async function (err, users) {
+        if (err) {
+            return res.status(500).json({
+                message: 'Error when getting users.',
+                error: err
+            });
+        }
+
+        await userModel.paginate({ agency: false }, { offset: start, limit: length }, function (err, result) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when getting users.',
+                    error: err
+                });
+            }
+            let finalResult = {
+                draw: req.query.draw,
+                recordsTotal: users.length,
+                recordsFiltered: users.length,
+                data: result.docs
+            };
+            res.send(finalResult);  
+        });
+
+    });
+  },
+  getListAgencyPaginate: function (req, res) {
+    let start = parseInt(req.query.start) || 0;
+    let length = parseInt(req.query.length) || 0;
+    userModel.find({ agency: true },async function (err, users) {
+        if (err) {
+            return res.status(500).json({
+                message: 'Error when getting users.',
+                error: err
+            });
+        }
+        console.log('nha xe');
+        await userModel.paginate({ agency: true }, { offset: start, limit: length }, function (err, result) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when getting users.',
+                    error: err
+                });
+            }
+            let finalResult = {
+                draw: req.query.draw,
+                recordsTotal: users.length,
+                recordsFiltered: users.length,
+                data: result.docs
+            };
+            res.send(finalResult);  
+        });
+
+    });
   }
 };

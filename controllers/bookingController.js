@@ -191,10 +191,11 @@ module.exports = {
             });
         });  
     },
-    getListPaginate: function (req, res) {
+    getListPaginate: async function (req, res) {
+		console.log("​Comein");
         let start = parseInt(req.query.start) || 0;
         let length = parseInt(req.query.length) || 0;
-        bookingModel.find({agency: req.session.user._id},async function (err, bookings) {
+        await bookingModel.find({agency: req.session.user._id},async function (err, bookings) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when getting bookings.',
@@ -214,6 +215,7 @@ module.exports = {
                     recordsFiltered: bookings.length,
                     data: result.docs
                 };
+                console.log('result', result.docs);
                 res.send(finalResult);  
             });
 
