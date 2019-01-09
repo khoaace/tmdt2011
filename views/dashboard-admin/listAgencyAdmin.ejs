@@ -99,11 +99,11 @@
   
     $(document).on("click", "button.btn-delete", function(event) {
       const data = {
-        tripId: $(this).attr("data-id")
+        id: $(this).attr("data-id")
       };
       $.ajax({
         type: "POST",
-        url: "/dashboard/removeTrip",
+        url: "/delete-user",
         data: data
       })
         .done(res => {

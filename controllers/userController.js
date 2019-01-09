@@ -82,6 +82,17 @@ module.exports = {
     });
     
   },
+  deleteUser: async function (req, res) {
+    const { id } = req.body;
+    
+		console.log("​comming");
+    await userModel.findOneAndDelete({_id: id}, function (err, userResult){
+      if(err)
+      throw err;
+      console.log("​commingss");
+      res.send('ok');
+    });
+  },
   getProfileForEdit: function (req, res) {
     res.render("user/edit-profile", { title: "Edit Profile ", user: req.session.user });
   },
