@@ -119,7 +119,6 @@
     // Set up a payment
     payment: function(data, actions) {
         const total = parseInt(parseInt($("#totalMoney").val()) / 23000);
-        console.log(total);
       return actions.payment.create({
         transactions: [{
           amount: {

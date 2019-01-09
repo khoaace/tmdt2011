@@ -58,6 +58,7 @@ module.exports = function(passport) {
               newUser.gender = req.body.gender;
               newUser.password = newUser.generateHash(password);
               newUser.createDate = cur_date;
+              newUser.favorite = [];
               newUser.fullname = req.body.fullname;
               newUser.agencyName = req.body.agencyName;
               newUser.agencyAdress = req.body.agencyAdress;
@@ -103,8 +104,10 @@ module.exports = function(passport) {
         passReqToCallback: true
       },
       function(req, username, password, done) {
-        User.findOne({ username: username }, function(err, user) {
-          if (err) return done(err);
+        User.findOne({ username: username }).exec(function(err, user) {
+          if (err) {
+            return done(err);
+          }
           // if no user is found, return the message
           if (!user)
             return done(

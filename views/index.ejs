@@ -200,8 +200,6 @@
         if (input.departure === '' && input.destination && input.departureTime)
             alert('Không hợp lệ');
 
-        console.log("​searchTrips -> input", input);
-
         $.ajax({
             type: 'POST',
             url: '/list-trips-search',

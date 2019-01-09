@@ -12,6 +12,7 @@ var usersSchema = new Schema({
   createDate: String,
   admin: Boolean,
   customer: Boolean,
+  favorite: Array,
   agency: Boolean,
   agencyName: String,
   agencyAdress: String,

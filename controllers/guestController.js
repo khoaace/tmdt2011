@@ -30,8 +30,14 @@ module.exports = {
     })
   },
   listTrips: async function (req, res) {
-    let perPage = 10;
-    let page = req.params.page || 1;
+    const perPage = 10;
+    const page = req.params.page || 1;
+    let favorite = [];
+    if(req.session.user)
+    {
+      favorite = req.session.user.favorite;
+    }
+
 
     tripsModel.paginate({}, { offset: (perPage * page) - perPage, limit: perPage }, async function (err, result) {
       await tripsModel.find({}, function (err, trips) {
@@ -43,6 +49,7 @@ module.exports = {
           current: page,
           pages: Math.ceil(trips.length / perPage),
           moment: moment,
+          favorite: favorite,
           user: req.session.user
         });
 
@@ -53,6 +60,12 @@ module.exports = {
     let perPage = 10;
     let page = req.params.page || 1;
     let id = req.params.id;
+    let favorite = [];
+
+    if(req.session.user)
+    {
+      favorite = req.session.user.favorite;
+    }
 
     tripsModel.paginate({ agency: id }, { offset: (perPage * page) - perPage, limit: perPage }, async function (err, result) {
       await tripsModel.find({ agency: id }, function (err, trips) {
@@ -63,6 +76,7 @@ module.exports = {
           current: page,
           pages: Math.ceil(trips.length / perPage),
           moment: moment,
+          favorite: favorite,
           user: req.session.user
         });
       });
@@ -72,6 +86,12 @@ module.exports = {
     let perPage = 10;
     let page = req.params.page || 1;
     let type = req.params.type;
+    let favorite = [];
+
+    if(req.session.user)
+    {
+      favorite = req.session.user.favorite;
+    }
 
     tripsModel.paginate({ typeOfBus: type }, { offset: (perPage * page) - perPage, limit: perPage }, async function (err, result) {
       await tripsModel.find({ typeOfBus: type }, function (err, trips) {
@@ -82,6 +102,7 @@ module.exports = {
           current: page,
           pages: Math.ceil(trips.length / perPage),
           moment: moment,
+          favorite: favorite,
           user: req.session.user
         });
 
@@ -90,7 +111,17 @@ module.exports = {
   },
   listTripsSearch: async function (req, res) {
     const { departure, destination, departureTime } = req.body;
-    console.log("​req.body", req.body);
+    let search = {
+      departure,
+      destination,
+      departureTime
+    }
+    console.log('req.body', req.body);
+    let favorite = [];
+    if(req.session.user)
+    {
+      favorite = req.session.user.favorite;
+    }
 
     let input = {};
 
@@ -106,22 +137,23 @@ module.exports = {
     }
       
 
-    console.log("​input", input);
-
     await tripsModel.find(input, (err, result) => {
       if (err)
         throw err;
-      console.log("​result", result);
       res.render("guest/list-trips-search",
         {
           title: "EC1805 - Payment ",
           trips: result,
           moment: moment,
-          layout: 'layouts/noneLayout'
+          favorite: favorite,
+          layout: 'layouts/noneLayout',
+          user: req.session.user,
+          search: search
         });
     });
   },
-  payment: async function (req, res) {
+
+  payment: async function (req, res) { 
     if (req.session.booking) {
 
       const { id, agency } = req.session.booking;
@@ -149,7 +181,6 @@ module.exports = {
               res.redirect('/');
             else {
               const total = parseInt(reservations.length) * parseInt(trip.price);
-              console.log(total);
               res.render("guest/payment",
                 {
                   title: "EC1805 - Payment ",

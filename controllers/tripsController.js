@@ -230,6 +230,7 @@ module.exports = {
             price : 250000,
         });
 
+        
         trips.save(function (err, trips) {
             if (err) {
                 return res.status(500).json({

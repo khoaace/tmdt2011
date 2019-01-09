@@ -22,8 +22,9 @@
       
           </div>
         </div>
-      </div>
+</div>
     <!-- End Modal   --> 
+<div id="listTrips">
     <% for(var i=0; i<trips.length; i++) { %>
         <div style="border: 1px dotted black;padding : 1em;">
             <h4>Điểm đi:
@@ -43,8 +44,20 @@
                     <%= moment(trips[i].arrivialTime, "HH:mm:ss").format("hh:mm A (DD-MM-YYYY)") %>
                 </strong>
             </h4>
-
-            <button class="btn btn-default"  onclick="getInfoTrip('<%= trips[i]._id %>')">Đặt vé</button>
+            <% if(user) { %>
+                <% if(favorite) { %>
+                    <% let pos = favorite.indexOf(trips[i]._id.toString()); %>
+                <% if(pos !== -1) { %>
+                    <button class="btn btn-primary btn-favorite" onclick="updateFavorite('<%= trips[i]._id %>', '<%= JSON.stringify(user) %>')">Yêu thích</button>
+                <% }else{ %>
+                    <button class="btn btn-default btn-favorite" onclick="updateFavorite('<%= trips[i]._id %>', '<%= JSON.stringify(user) %>')">Yêu thích</button>
+                <% } %>
+                <% }else{ %>
+                    <button class="btn btn-primary btn-favorite" onclick="updateFavorite('<%= trips[i]._id %>', '<%= JSON.stringify(user) %>')">Yêu thích</button>
+                <% } %>
+            <% } %>
+           
+            <button class="btn btn-secondary"  onclick="getInfoTrip('<%= trips[i]._id %>')">Đặt vé</button>
         </div>
         <br/> 
         <% } %>
@@ -79,6 +92,8 @@
         </ul>
     </nav>
     <% } %>
+
+</div>
     
     <script>
         function getInfoTrip(id) {
@@ -94,6 +109,38 @@
                 currentReservationArray = [];
                 await $.getScript("/javascripts/booking.js");
             }).fail(function (data) {
+            });
+        }
+
+        function updateFavorite(id, user) {
+
+            let userJSON = JSON.parse(user); 
+            let favorite = [...userJSON.favorite];
+        
+            let posTrip = favorite.indexOf(id);
+
+            if(posTrip === -1) favorite.push(id);
+            else favorite.splice(posTrip, 1);
+
+            if(favorite === undefined || favorite.length === 0)
+            {
+                favorite = [];
+            }
+            
+
+            let input = {
+                id: id,
+                arrFavorite: favorite
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/update-favorite',
+                data :input
+            }).done(async function (res) {
+                $("#listTrips").load(window.location.href + ' #listTrips');
+            }).fail(function (data) {
+
             });
         }
     </script>

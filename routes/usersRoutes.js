@@ -9,8 +9,12 @@ module.exports = function(app, passport) {
   app.get("/profile", isLoggedIn, userController.profile);
   app.get("/edit-profile", isLoggedIn, userController.getProfileForEdit);
   app.post("/update-profile", isLoggedIn, userController.updateUser);
+  app.post("/update-favorite", isLoggedIn, userController.updateFavorite);
+  app.get("/sync-user",isLoggedIn, userController.syncUser);
   app.get("/history-purchase", isLoggedIn, bookingController.showByUser);
   app.get("/setup", userController.setupAdmin);
+  app.get("/update-all", userController.updateAllUser);
+
 
   app.post(
     "/signin",

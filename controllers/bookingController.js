@@ -65,7 +65,6 @@ module.exports = {
             createDay: new Date(),
             seatCode: reservations
         });
-        console.log(booking);
         booking.save(function (err, booking) {
             if (err) {
                 return res.status(500).json({
@@ -192,7 +191,6 @@ module.exports = {
         });  
     },
     getListPaginate: async function (req, res) {
-		console.log("​Comein");
         let start = parseInt(req.query.start) || 0;
         let length = parseInt(req.query.length) || 0;
         await bookingModel.find({agency: req.session.user._id},async function (err, bookings) {
@@ -215,7 +213,6 @@ module.exports = {
                     recordsFiltered: bookings.length,
                     data: result.docs
                 };
-                console.log('result', result.docs);
                 res.send(finalResult);  
             });
 

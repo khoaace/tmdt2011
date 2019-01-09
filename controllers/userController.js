@@ -32,7 +32,6 @@ module.exports = {
   },
   setupAdmin: async function(req, res) {
     // create a sample user
-    console.log('Comming');
     var date = new Date();
     var user = new userModel();
     user.username = "admin";
@@ -45,14 +44,11 @@ module.exports = {
     // save the sample user
     await user.save(function(err) {
       if (err) throw err;
-      console.log("User saved successfully");
       res.send('ok');
     });
   },
   updateUser: async function (req, res) {
     const { id, email, fullname, gender, agencyName, agencyAdress, agencyPhoneNumber, agencyDiscription } = req.body;
-
-    console.log('req.body', req.body);
     await userModel.findOne({_id: id}, async (err, userResult)=>{
 
       if(err)
@@ -73,14 +69,15 @@ module.exports = {
       userResult.agencyPhoneNumber = agencyPhoneNumber ? agencyPhoneNumber : userResult.agencyPhoneNumber;
       userResult.agencyDiscription = agencyDiscription ? agencyDiscription : userResult.agencyDiscription;
 
-      await userResult.save().then(()=>{
-        res.redirect('/profile');
-      }).catch(err=>{
+      await userResult.save(function (err, user) {
+        if(err)
         res.status(500).json({
           message: 'Error when saving User',
           error: err
         });
-      })
+        req.session.user = user;
+        res.redirect('/profile');
+      });
 
     });
     
@@ -127,7 +124,6 @@ module.exports = {
                 error: err
             });
         }
-        console.log('nha xe');
         await userModel.paginate({ agency: true }, { offset: start, limit: length }, function (err, result) {
             if (err) {
                 return res.status(500).json({
@@ -143,6 +139,67 @@ module.exports = {
             };
             res.send(finalResult);  
         });
+
+    });
+  },
+  updateFavorite: async function (req, res) {
+    const { id } = req.body;
+    let arrFavorite = req.body['arrFavorite[]'];
+    
+    if(arrFavorite === undefined)
+    {
+      arrFavorite= [];
+    }
+
+    await userModel.findOne({ _id: req.session.user._id }, function (err, userResult) {
+      if(err)
+        throw err;
+      if(!userResult)
+        throw "Error when getting favorite";
+      //set Favorite
+      userResult.favorite = arrFavorite;
+      //save
+      userResult.save(function (err, user) {
+        if (err) {
+          return res.status(500).json({
+            message: 'Error when updating favorite',
+            error: err
+          });
+        }
+        req.session.user = user;
+        return res.send('oke');
+      });
+    });
+  },
+  syncUser: async function (req, res) {
+    currentUser = req.session.user;
+    if(currentUser)
+    {
+        await userModel.findOne({ _id:currentUser._id  }).exec(function (err, userResult) {
+          if(err)
+          throw new Error('Error when sync user');
+          if(!userResult)
+          throw new Error('Error when getting user');
+          //update
+          req.session.user = userResult;
+        });
+    }
+    else throw new Error("Not Login");
+  },
+  updateAllUser: async function (req, res) {
+    await userModel.find({}, async function (err, usersResult) {
+      let promise = [];
+
+      await usersResult.forEach(e => {
+        e.favorite = [];
+        promise.push(e.save());
+      });
+
+      await Promise.all(promise).then(result => {
+        res.send('ok');
+      }).catch(err => {
+        throw err;
+      });
 
     });
   }
