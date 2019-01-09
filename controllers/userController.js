@@ -213,5 +213,26 @@ module.exports = {
       });
 
     });
+  },
+  changePassword : async function (req, res) {
+    const { newPassword } = req.body;
+		console.log("​req.body", req.body);
+    await userModel.findOne({_id: req.session.user._id}, function (err, userResult) {
+      if(err)
+         res.status(500).send(err);
+      if(!userResult)
+        res.status(404).send('No such user');
+      //Hash Password
+      let newPasswordEncrypt = userResult.generateHash(newPassword);
+      //set Password
+      userResult.password = newPasswordEncrypt;
+      //Save User
+      userResult.save(function(err, result){
+        res.redirect('/profile');
+      });
+    });
+  },
+  getChangePassword: function (req, res) {
+    res.render("user/change-password", { title: "Change Password ", user: req.session.user });
   }
 };

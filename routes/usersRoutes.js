@@ -15,7 +15,8 @@ module.exports = function(app, passport) {
   app.get("/setup", userController.setupAdmin);
   app.get("/update-all", userController.updateAllUser);
   app.post("/delete-user", userController.deleteUser);
-
+  app.post('/change-password', isLoggedIn, userController.changePassword);
+  app.get('/change-password', isLoggedIn, userController.getChangePassword);
 
   app.post(
     "/signin",

@@ -19,9 +19,11 @@ router.get("/list-trips-type/:type/:page", guestController.listTripsType);
 
 router.post("/list-trips-search", guestController.listTripsSearch);
 
+router.get("/list-trips-favorite", isLoggedIn, guestController.listTripsFavorite);
+
 router.get("/payment", isLoggedIn, guestController.payment);
 
-router.post("/getPayment", guestController.getPayment);
+router.post("/getPayment",isLoggedIn, guestController.getPayment);
 
 router.get("/error", guestController.getError);
 

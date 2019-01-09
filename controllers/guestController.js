@@ -109,6 +109,7 @@ module.exports = {
       });
     });
   },
+  
   listTripsSearch: async function (req, res) {
     const { departure, destination, departureTime } = req.body;
     let search = {
@@ -152,7 +153,32 @@ module.exports = {
         });
     });
   },
+  listTripsFavorite: async function (req, res) {
+    console.log('Vo');
+    let favorite = req.session.user.favorite;
+		console.log("​favorite", favorite);
+    let promise = [];
+    if(favorite)
+    {
+      favorite.forEach(element => {
+        console.log(element);
+        promise.push(tripsModel.findOne({_id: element}));
+      });
 
+      await Promise.all(promise).then(result =>{
+        res.render("guest/list-trips-favorite",
+        {
+          title: "EC1805 - List Trips",
+          trips: result,
+          moment: moment,
+          favorite: favorite,
+          user: req.session.user,
+        });
+      }).catch(err=>{
+        throw err;
+      });
+    }else throw "Fovarite is empty";
+  },
   payment: async function (req, res) { 
     if (req.session.booking) {
 
