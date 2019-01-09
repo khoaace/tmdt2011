@@ -57,6 +57,7 @@
                 >
                 <div class="col-8"><%= bookings[i].seatCode %></div>
               </div>
+              <input type="hidden" style="display: none;" value="<%= bookings[i].trip.departureTime %>" id="timeTrip<%= bookings[i]._id %>" >
               <input type="hidden" style="display: none;" value="<%= bookings[i].trip._id %>" id="idTrip<%= bookings[i]._id %>" >
               <input type="hidden" style="display: none;" value="<%= bookings[i].seatCode %>" id="seats<%= bookings[i]._id %>" >
               <input type="hidden" style="display: none;" value="<%= bookings[i]._id %>" id="idBooking<%= bookings[i]._id %>" >
@@ -71,6 +72,9 @@
 </div>
 <script>
   function cancelTicket(id) {
+
+    let newDate = new Date($("#timeTrip"+id).val());
+    console.log(moment(newDate).format('lll'));
     if(confirm('You really want to cancel the ticket'))
     {
       const data = {

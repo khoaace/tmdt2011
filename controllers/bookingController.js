@@ -150,6 +150,8 @@ module.exports = {
 
         let seatsArray = seats.split(",");
 
+        
+
         await bookingModel.findOneAndDelete({ _id: id }, async function(err, booking){
             if (err) {
                 return res.status(500).json({

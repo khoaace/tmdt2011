@@ -38,22 +38,31 @@ module.exports = {
       favorite = req.session.user.favorite;
     }
 
-
     tripsModel.paginate({}, { offset: (perPage * page) - perPage, limit: perPage }, async function (err, result) {
-      await tripsModel.find({}, function (err, trips) {
-        if (err) return next(err);
-
-        res.render('guest/list-trips', {
-          title: "List Trips",
-          trips: result.docs,
-          current: page,
-          pages: Math.ceil(trips.length / perPage),
-          moment: moment,
-          favorite: favorite,
-          user: req.session.user
-        });
-
+      let promise = [];
+      result.docs.forEach(element =>{
+        promise.push(userModel.findOne({_id: element.agency}));
       });
+      await Promise.all(promise).then(async agencyResult =>{
+        await tripsModel.find({}, function (err, trips) {
+          if (err) return next(err);
+  
+          res.render('guest/list-trips', {
+            title: "List Trips",
+            trips: result.docs,
+            current: page,
+            pages: Math.ceil(trips.length / perPage),
+            moment: moment,
+            favorite: favorite,
+            agency: agencyResult,
+            user: req.session.user
+          });
+
+        });
+      }).catch(err=>{
+        throw err;
+      })
+     
     });
   },
   listTripsAgency: async function (req, res) {
@@ -68,18 +77,29 @@ module.exports = {
     }
 
     tripsModel.paginate({ agency: id }, { offset: (perPage * page) - perPage, limit: perPage }, async function (err, result) {
-      await tripsModel.find({ agency: id }, function (err, trips) {
-        if (err) return next(err);
-        res.render('guest/list-trips', {
-          title: "List Trips",
-          trips: result.docs,
-          current: page,
-          pages: Math.ceil(trips.length / perPage),
-          moment: moment,
-          favorite: favorite,
-          user: req.session.user
-        });
+      let promise = [];
+      result.docs.forEach(element =>{
+        promise.push(userModel.findOne({_id: element.agency}));
       });
+      await Promise.all(promise).then(async agencyResult =>{
+        await tripsModel.find({}, function (err, trips) {
+          if (err) return next(err);
+  
+          res.render('guest/list-trips', {
+            title: "List Trips",
+            trips: result.docs,
+            current: page,
+            pages: Math.ceil(trips.length / perPage),
+            moment: moment,
+            favorite: favorite,
+            agency: agencyResult,
+            user: req.session.user
+          });
+
+        });
+      }).catch(err=>{
+        throw err;
+      })
     });
   },
   listTripsType: async function (req, res) {
@@ -93,20 +113,30 @@ module.exports = {
       favorite = req.session.user.favorite;
     }
 
-    tripsModel.paginate({ typeOfBus: type }, { offset: (perPage * page) - perPage, limit: perPage }, async function (err, result) {
-      await tripsModel.find({ typeOfBus: type }, function (err, trips) {
-        if (err) return next(err);
-        res.render('guest/list-trips', {
-          title: "List Trips",
-          trips: result.docs,
-          current: page,
-          pages: Math.ceil(trips.length / perPage),
-          moment: moment,
-          favorite: favorite,
-          user: req.session.user
-        });
-
+    tripsModel.paginate({ typeOfBus: type }, { offset: (perPage * page) - perPage, limit: perPage },  async function (err, result) {
+      let promise = [];
+      result.docs.forEach(element =>{
+        promise.push(userModel.findOne({_id: element.agency}));
       });
+      await Promise.all(promise).then(async agencyResult =>{
+        await tripsModel.find({}, function (err, trips) {
+          if (err) return next(err);
+  
+          res.render('guest/list-trips', {
+            title: "List Trips",
+            trips: result.docs,
+            current: page,
+            pages: Math.ceil(trips.length / perPage),
+            moment: moment,
+            favorite: favorite,
+            agency: agencyResult,
+            user: req.session.user
+          });
+
+        });
+      }).catch(err=>{
+        throw err;
+      })
     });
   },
   
@@ -138,42 +168,60 @@ module.exports = {
     }
       
 
-    await tripsModel.find(input, (err, result) => {
+    await tripsModel.find(input).exec((err, result) => {
       if (err)
         throw err;
-      res.render("guest/list-trips-search",
-        {
-          title: "EC1805 - Payment ",
-          trips: result,
-          moment: moment,
-          favorite: favorite,
-          layout: 'layouts/noneLayout',
-          user: req.session.user,
-          search: search
+
+        let promiseAgency = [];
+        result.forEach(element =>{
+          promiseAgency.push(userModel.findOne({_id: element.agency}));
         });
+        Promise.all(promiseAgency).then(agencyResult=>{
+          res.render("guest/list-trips-search",
+          {
+            title: "EC1805 - Payment ",
+            trips: result,
+            moment: moment,
+            favorite: favorite,
+            agency: agencyResult,
+            layout: 'layouts/noneLayout',
+            user: req.session.user,
+            search: search
+          });
+        }).catch(err=> {
+          throw err
+        });
+
     });
   },
   listTripsFavorite: async function (req, res) {
-    console.log('Vo');
     let favorite = req.session.user.favorite;
-		console.log("​favorite", favorite);
     let promise = [];
     if(favorite)
     {
       favorite.forEach(element => {
-        console.log(element);
         promise.push(tripsModel.findOne({_id: element}));
       });
 
       await Promise.all(promise).then(result =>{
-        res.render("guest/list-trips-favorite",
-        {
-          title: "EC1805 - List Trips",
-          trips: result,
-          moment: moment,
-          favorite: favorite,
-          user: req.session.user,
+        let promiseAgency = [];
+        result.forEach(element =>{
+          promiseAgency.push(userModel.findOne({_id: element.agency}));
         });
+        Promise.all(promiseAgency).then(agencyResult=>{
+          res.render("guest/list-trips-favorite",
+          { 
+            title: "EC1805 - List Trips",
+            trips: result,
+            moment: moment,
+            favorite: favorite,
+            agency: agencyResult,
+            user: req.session.user,
+          });
+        }).catch(err=>{
+          throw err;
+        })
+    
       }).catch(err=>{
         throw err;
       });
@@ -200,7 +248,7 @@ module.exports = {
           res.redirect('/');
         else
 
-          await user.findOne({ _id: agency }, function (err, agency) {
+          await userModel.findOne({ _id: agency }, function (err, agency) {
             if (err)
               res.redirect('/');
             if (!agency)
